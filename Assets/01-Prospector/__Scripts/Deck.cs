@@ -2,7 +2,8 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class Deck : MonoBehaviour {
+public class Deck : MonoBehaviour
+{
 
 [Header("Set in Inspector")]
 	//Suits
@@ -37,15 +38,18 @@ public class Deck : MonoBehaviour {
 
 
 	// called by Prospector when it is ready
-	public void InitDeck(string deckXMLText) {
+	public void InitDeck(string deckXMLText)
+	{
 		// from page 576
-		if( GameObject.Find("_Deck") == null) {
+		if( GameObject.Find("_Deck") == null)
+		{
 			GameObject anchorGO = new GameObject("_Deck");
 			deckAnchor = anchorGO.transform;
 		}
 		
 		// init the Dictionary of suits
-		dictSuits = new Dictionary<string, Sprite>() {
+		dictSuits = new Dictionary<string, Sprite>()
+		{
 			{"C", suitClub},
 			{"D", suitDiamond},
 			{"H", suitHeart},
@@ -128,9 +132,12 @@ public class Deck : MonoBehaviour {
 		} // for i < xCardDefs.Count
 	} // ReadDeck
 	
-	public CardDefinition GetCardDefinitionByRank(int rnk) {
-		foreach(CardDefinition cd in cardDefs) {
-			if (cd.rank == rnk) {
+	public CardDefinition GetCardDefinitionByRank(int rnk)
+	{
+		foreach(CardDefinition cd in cardDefs)
+		{
+			if (cd.rank == rnk)
+			{
 					return(cd);
 			}
 		} // foreach
@@ -138,12 +145,15 @@ public class Deck : MonoBehaviour {
 	}//GetCardDefinitionByRank
 	
 	
-	public void MakeCards() {
+	public void MakeCards()
+	{
 		// stub Add the code from page 577 here
 		cardNames = new List<string>();
 		string[] letters = new string[] {"C","D","H","S"};
-		foreach (string s in letters) {
-			for (int i =0; i<13; i++) {
+		foreach (string s in letters)
+		{
+			for (int i =0; i<13; i++)
+			{
 				cardNames.Add(s+(i+1));
 			}
 		}
@@ -156,7 +166,8 @@ public class Deck : MonoBehaviour {
 		GameObject tGO = null;
 		SpriteRenderer tSR = null;  // so tempted to make a D&D ref here...
 		
-		for (int i=0; i<cardNames.Count; i++) {
+		for (int i=0; i<cardNames.Count; i++)
+		{
 			GameObject cgo = Instantiate(prefabCard) as GameObject;
 			cgo.transform.parent = deckAnchor;
 			Card card = cgo.GetComponent<Card>();
@@ -167,7 +178,8 @@ public class Deck : MonoBehaviour {
 			card.suit = card.name[0].ToString();
 			card.rank = int.Parse (card.name.Substring (1));
 			
-			if (card.suit =="D" || card.suit == "H") {
+			if (card.suit =="D" || card.suit == "H")
+			{
 				card.colS = "Red";
 				card.color = Color.red;
 			}
@@ -253,9 +265,12 @@ public class Deck : MonoBehaviour {
 	} // makeCards
 	
 	//Find the proper face card
-	public Sprite GetFace(string faceS) {
-		foreach (Sprite tS in faceSprites) {
-			if (tS.name == faceS) {
+	public Sprite GetFace(string faceS)
+	{
+		foreach (Sprite tS in faceSprites)
+		{
+			if (tS.name == faceS)
+			{
 				return (tS);
 			}
 		}//foreach	
