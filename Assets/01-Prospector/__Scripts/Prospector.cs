@@ -11,11 +11,13 @@ public class Prospector : MonoBehaviour
 	static public Prospector 	S;
 
 	[Header("Set in Inspector")]
-	public TextAsset			deckXML;
+	public TextAsset deckXML;
+	public TextAsset layoutXML;
 
 
 	[Header("Set Dynamically")]
-	public Deck					deck;
+	public Deck	deck;
+	public Layout layout;
 
 	void Awake()
 	{

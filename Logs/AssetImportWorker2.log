@@ -243,3 +243,11 @@ AssetImportParameters requested are different than current active one (requested
   custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
   custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
   custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
+========================================================================
+Received Import Request.
+  Time since last request: 554.743287 seconds.
+  path: Assets/01-Prospector/__Scripts/Card.cs
+  artifactKey: Guid(100a12af089e19845beeba3dc7d93c78) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/01-Prospector/__Scripts/Card.cs using Guid(100a12af089e19845beeba3dc7d93c78) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '364b4b03db84528b2ed73dc9de974fac') in 0.002099 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 0
