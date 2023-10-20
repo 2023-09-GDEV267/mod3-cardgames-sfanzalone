@@ -107,8 +107,10 @@ public class Deck : MonoBehaviour
 			cDef.rank = int.Parse(xCardDefs[i].att("rank"));
 			
 			PT_XMLHashList xPips = xCardDefs[i]["pip"];
-			if (xPips != null) {			
-				for (int j = 0; j < xPips.Count; j++) {
+			if (xPips != null)
+			{			
+				for (int j = 0; j < xPips.Count; j++)
+				{
 					deco = new Decorator();
 					deco.type = "pip";
 					deco.flip = (xPips[j].att ("flip") == "1");   // too cute by half - if it's 1, set to 1, else set to 0
@@ -116,7 +118,8 @@ public class Deck : MonoBehaviour
 					deco.loc.x = float.Parse (xPips[j].att("x"));
 					deco.loc.y = float.Parse (xPips[j].att("y"));
 					deco.loc.z = float.Parse (xPips[j].att("z"));
-					if(xPips[j].HasAtt("scale") ) {
+					if(xPips[j].HasAtt("scale") )
+					{
 						deco.scale = float.Parse (xPips[j].att("scale"));
 					}
 					cDef.pips.Add (deco);
@@ -125,7 +128,8 @@ public class Deck : MonoBehaviour
 			
 			// if it's a face card, map the proper sprite
 			// foramt is ##A, where ## in 11, 12, 13 and A is letter indicating suit
-			if (xCardDefs[i].HasAtt("face")){
+			if (xCardDefs[i].HasAtt("face"))
+			{
 				cDef.face = xCardDefs[i].att ("face");
 			}
 			cardDefs.Add (cDef);
