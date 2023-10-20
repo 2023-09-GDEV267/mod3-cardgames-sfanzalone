@@ -180,11 +180,54 @@ public class Prospector : MonoBehaviour
 		tableau.Add(cp); //Add this CardProspector to the List<> tableau		
 	}
 
+	//Set which cards are hiding others
+	foreach(CardProspector tCP in tableau)
+	{
+		foreach(int hid in tCP.slotDef.hiddenAway)
+		{
+			cp = FindCardByLayoutID(hid);
+			tCP.hiddenBy.Add(cp);
+		}
+	}
+
 	//Set up the initial target card
 	MoveToTarget(Draw());
 
 	//Set up the Draw pile
 	UpdateDrawPile();
+
+	//Convert from the layoutID int to the CardProspector with that ID
+	CardProspector FindCardByLayoutID(int layoutID)
+	{
+		foreach(CardProspector tCP in tableau)
+		{
+			//If the card has the same ID, return it
+			return(tCP);
+		}
+
+		//If it's not, return null
+		return(null);
+	}
+
+	//This turns cards in the Mine face-up or face-down
+	void SetTableauFaces()
+	{
+		foreach(CardProspector cd in tableau)
+		{
+			bool faceUp = true; //Assume the card will be face-up
+
+			foreach(CardProspector cover in cd.hiddenBy)
+			{
+				//If either of the covering cards are in the tableau
+				if(cover.state == eCardState.tableau)
+				{
+					faceUp = false; //Then this card is face-down
+				}
+			}
+
+			cd.faceUp = faceUp; //Set the value on the card
+		}
+	}
 
 	//CardClicked is called any time a card in the game is clicked
 	public void CardClicked(CardProspector cd)
