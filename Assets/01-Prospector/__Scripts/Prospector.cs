@@ -87,6 +87,73 @@ public class Prospector : MonoBehaviour
 			layoutAnchor.transform.position = layoutCenter; //Position it
         }
     }
+	
+	//Moves the current target to the discardPile
+	void MoveToDiscard(CardProspector cd)
+    {
+		//Set the state of the card to discard
+		cd.state = eCardState.discard;
+		discardPile.Add(cd); //Add it to the discardPile List<>
+		cd.transform.parent = layoutAnchor; //Update its transform parent
+
+		//Position this card on the discardPile
+		cd.transform.localPosition = new Vector3(layout.multiplier.x * layout.discardPile.x,
+													layout.multiplier.y * layout.discardPile.y,
+													-layout.discardPile.layerID + 0.5f);
+		cd.faceUp = true;
+
+		//Place it on top of the pile for depth sorting
+		cd.SetSortingLayerName(layout.discardPile.layerName);
+		cd.SetSortOrder(-100 + discardPile.Count);
+    }
+
+	 void MoveToTarget(CardProspector cd)
+    {
+		//If there is currently a target card, move it to discardPile
+		if(target != null)
+        {
+			MoveToDiscard(target);
+        }
+
+		target = cd; //cd is the new target
+
+		cd.state = eCardState.target;
+		cd.transform.parent = layoutAnchor;
+
+		//Move to the target position
+		cd.transform.localPosition = new Vector3(layout.multiplier.x * layout.discardPile.x,
+													layout.multiplier.y * layout.discardPile.y,
+													-layout.discardPile.layerID);
+		cd.faceUp = true;
+
+		//Place it on top of the pile for depth sorting
+		cd.SetSortingLayerName(layout.discardPile.layerName);
+		cd.SetSortOrder(-100 + discardPile.Count);
+	}
+
+	void UpdateDrawPile()
+    {
+		CardProspector cd;
+
+		//Go through all the cards of the drawPile
+		for(int i = 0; i < drawPile.Count; i++)
+        {
+			cd = drawPile[i];
+			cd.transform.parent = layoutAnchor;
+
+			//Position it correctly with the layout.drawPile.stagger
+			Vector2 dpStagger = layout.drawPile.stagger;
+			cd.transform.localPosition = new Vector3(layout.multiplier.x * layout.discardPile.x,
+													layout.multiplier.y * layout.discardPile.y,
+													-layout.drawPile.layerID + 0.1f * i);
+			cd.faceUp = false; //Make them all face down
+			cd.state = eCardState.drawpile;
+
+			//Set depth sorting 
+			cd.SetSortingLayerName(layout.drawPile.layerName);
+			cd.SetSortOrder(-10 * i);
+        }
+	}
 
 	CardProspector cp;
 
@@ -108,6 +175,7 @@ public class Prospector : MonoBehaviour
 
 		//CardProspectors in the tableau have the state CardState.tableau
 		cp.state = eCardState.tableau;
+		cp.SetSortingLayerName(tSD.layerName); //Set the sorting layers
 
 		tableau.Add(cp); //Add this CardProspector to the List<> tableau
 	}

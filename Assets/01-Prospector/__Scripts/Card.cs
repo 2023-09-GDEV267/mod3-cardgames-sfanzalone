@@ -37,7 +37,7 @@ public class Card : MonoBehaviour
     }
 
 	//Sets the sortingLayerName on all SpreiteRenderer Components
-	public void SetSortinglayerName(string tSLN)
+	public void SetSortingLayerName(string tSLN)
     {
 		PopulateSpriteRenderers();
 
@@ -94,6 +94,12 @@ public class Card : MonoBehaviour
 		}
 	}
 	
+	//Virtual methods can be converted by subclass methods with the same name
+	virtual public void OnMouseUpAsButton()
+    {
+		print(name); //When clicked, this outputs the card name
+    }
+
 	// Update is called once per frame
 	void Update ()
 	{

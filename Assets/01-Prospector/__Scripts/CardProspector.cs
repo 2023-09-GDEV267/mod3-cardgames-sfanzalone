@@ -11,7 +11,7 @@ public enum eCardState
     discard
 }
 
-public class CardProspector : MonoBehaviour
+public class CardProspector : Card
 {
     [Header("Set Dynamically: CardProspector")]
 
@@ -26,4 +26,14 @@ public class CardProspector : MonoBehaviour
 
     //The SlotDef class stores information pulled in from the LayoutXML <slot>
     public SlotDef slotDef;
+
+    //This allows the card to react to being clicked
+    public override void OnMouseUpAsButton()
+    {
+        //Call the CardClicked method on the Prospector singleton
+        Prospector.S.CardClicked(this);
+        
+        //Also call the base class (Card.cs) version of this method
+        base.OnMouseUpAsButton();
+    }
 }
