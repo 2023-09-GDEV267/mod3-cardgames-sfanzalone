@@ -177,6 +177,90 @@ public class Prospector : MonoBehaviour
 		cp.state = eCardState.tableau;
 		cp.SetSortingLayerName(tSD.layerName); //Set the sorting layers
 
-		tableau.Add(cp); //Add this CardProspector to the List<> tableau
+		tableau.Add(cp); //Add this CardProspector to the List<> tableau		
+	}
+
+	//Set up the initial target card
+	MoveToTarget(Draw());
+
+	//Set up the Draw pile
+	UpdateDrawPile();
+
+	//CardClicked is called any time a card in the game is clicked
+	public void CardClicked(CardProspector cd)
+	{
+		//The reaction is determined by the state of the clicked card
+		switch (cd.state)
+		{
+			case eCardState.target:
+				//Clicking the target card does nothing
+				break;
+			
+			case eCardState.drawpile:
+				//Clicking any card in the drawPile will draw the next card
+				MoveToDiscard(target); //Moves the target to the discardPile
+				MoveToTarget(Draw()); //Moves the next drawn card to the target
+				UpdateDrawPile(); // Restacks the drawPile
+
+				break;
+
+			case eCardState.tableau:
+				//Clicking a card in the tableau will check if it's a valid play
+				bool validMatch = true;
+
+				if (!cd.faceUp)
+				{
+					//If the card is face-down, it's not valid
+					validMatch = false;
+				}
+
+				if(!AdjacentRank(cd, target))
+				{
+					//If it's not an adjacent rank, it's not valid
+					validMatch = false;
+				}
+
+				if (!validMatch)
+				{
+					return; //Return if not valid
+				}
+
+				//If we got here, then: Yay!  It's a valid card.
+				tableau.Remove(cd); //Remove it from the tableau List
+				MoveToTarget(cd); //Make it the target card
+
+					break;
+		}
+	}
+
+	//Return true if the two cards are adjacent in rank (A & K wrap around)
+	public bool AdjacentRank(CardProspector c0, CardProspector c1)
+	{
+		//If either card is face-down, it's not adjacent.
+		if(!c0.faceUp || !c1.faceUp)
+		{
+			return(false);
+		}
+
+		//If they're 1 apart, they're adjacent
+		if(Mathf.Abs(c0.rank - c1.rank) == 1)
+		{
+			return(true);
+		}
+
+		//If one is Ace and the other is King, they're adjacent
+		if(c0.rank == 1 && c1.rank == 13)
+		{
+			return(true);
+		}
+
+		//If one is Ace and the other is King, they're adjacent
+		if (c0.rank == 13 && c1.rank == 1)
+		{
+			return(true);
+		}
+
+		//Otherwise, return false
+		return(false);
 	}
 }
