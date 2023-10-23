@@ -229,6 +229,8 @@ public class Prospector : MonoBehaviour
 		}
 	}
 
+	
+
 	//CardClicked is called any time a card in the game is clicked
 	public void CardClicked(CardProspector cd)
 	{
@@ -243,7 +245,8 @@ public class Prospector : MonoBehaviour
 				//Clicking any card in the drawPile will draw the next card
 				MoveToDiscard(target); //Moves the target to the discardPile
 				MoveToTarget(Draw()); //Moves the next drawn card to the target
-				UpdateDrawPile(); // Restacks the drawPile
+				SetTableauFaces(); //Update tableau card face-ups
+				UpdateDrawPile(); //Restacks the drawPile
 
 				break;
 
@@ -274,6 +277,59 @@ public class Prospector : MonoBehaviour
 
 					break;
 		}
+
+		//Check to see whether the game is over or not
+		CheckForGameOver();
+	}
+
+	//Test whether the game is over
+	void CheckForGameOver()
+	{
+		//If tableau is empty, the game is over
+		if(tableau.Count == 0)
+		{
+			//Call GameOver() with a win
+			GameOver(true);
+
+			return;
+		}
+
+		//If there are still cards in the draw pile, the game's not over
+		if(drawPile.Count > 0)
+		{
+			return;
+		}
+
+		//Check for remaining valid plays
+		foreach(CardProspector cd in tableau)
+		{
+			if(AdjacentRank(cd, target))
+			{
+				//If there's a valid play, the game's not over
+				return;
+			}
+
+			//Since there's no valid plays, the game is over
+			//Call GameOver with a loss
+			CheckForGameOver(false);
+		}
+	}
+
+	//Called when the game is over.  Simple for now, but expandable
+	void GameOver(bool won)
+	{
+		if (won)
+		{
+			System.out.println("Game Over.  You Won! :)");
+		}
+
+		else
+		{
+			System.out.println("Game Over.  You Lost. :(");
+		}
+
+		//Reload the scene, resetting the game
+		SceneManager.LoadScene("__Prospector")
 	}
 
 	//Return true if the two cards are adjacent in rank (A & K wrap around)
