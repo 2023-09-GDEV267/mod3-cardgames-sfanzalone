@@ -247,6 +247,7 @@ public class Prospector : MonoBehaviour
 				MoveToTarget(Draw()); //Moves the next drawn card to the target
 				SetTableauFaces(); //Update tableau card face-ups
 				UpdateDrawPile(); //Restacks the drawPile
+				ScoreManager.EVENT(eScoreEvent.draw);
 
 				break;
 
@@ -274,8 +275,9 @@ public class Prospector : MonoBehaviour
 				//If we got here, then: Yay!  It's a valid card.
 				tableau.Remove(cd); //Remove it from the tableau List
 				MoveToTarget(cd); //Make it the target card
+				ScoreManager.EVENT(eScoreEvent.mine);
 
-					break;
+				break;
 		}
 
 		//Check to see whether the game is over or not
@@ -320,16 +322,18 @@ public class Prospector : MonoBehaviour
 	{
 		if (won)
 		{
-			System.out.println("Game Over.  You Won! :)");
+			//print("Game Over.  You Won! :)"); //This is supposed to be commented out
+			ScoreManager.EVENT(eScoreEvent.gameWin);
 		}
 
 		else
 		{
-			System.out.println("Game Over.  You Lost. :(");
-		}
+			//print("Game Over.  You Lost. :("); //This is supposed to be commented out
+			ScoreManager.EVENT(eScoreEvent.gameLoss);
+	}
 
-		//Reload the scene, resetting the game
-		SceneManager.LoadScene("__Prospector")
+	//Reload the scene, resetting the game
+	SceneManager.LoadScene("__Prospector");
 	}
 
 	//Return true if the two cards are adjacent in rank (A & K wrap around)

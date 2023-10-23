@@ -189,3 +189,11 @@ Received Import Request.
 Start importing Assets/01-Prospector/__Scripts/ScoreManager.cs using Guid(b64f2e74c9f24a44994cdeaba5fb3e39) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '860e2844c97bac6c14329c16ef298494') in 0.000787 seconds
 Number of updated asset objects reloaded before import = 0
 Number of asset objects unloaded after import = 0
+========================================================================
+Received Import Request.
+  Time since last request: 554.304921 seconds.
+  path: Assets/01-Prospector/__Scripts/FloatingScore.cs
+  artifactKey: Guid(8e40fc6806ece9948b44542d6c094cd3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/01-Prospector/__Scripts/FloatingScore.cs using Guid(8e40fc6806ece9948b44542d6c094cd3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'f290efed4a0eb92593c21af5ef3b3746') in 0.000751 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 0
