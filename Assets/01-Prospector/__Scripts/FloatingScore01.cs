@@ -12,7 +12,7 @@ public enum eFSState
     post
 }
 
-public class FloatingScore : MonoBehaviour
+public class FloatingScore01 : MonoBehaviour
 {
     [Header("Set Dynamically")]
 
@@ -37,7 +37,7 @@ public class FloatingScore : MonoBehaviour
             scoreString = _score.ToString("N0"); //"N0" adds commas to the sum
 
             //Search "C# Standard Numeric Format Strings" for ToString formats
-            GetComponent<Text>().text = scoreString;
+            //GetComponent<Text>().text = scoreString;
         }
     }
 
@@ -45,13 +45,13 @@ public class FloatingScore : MonoBehaviour
     public List<float> fontSizes; //Bezier points for font scaling
     public float timeStart = -1f;
     public float timeDuration = 1f;
-    public string easingCurve = Easing.InOut; //Uses Easing in Util.cs
+    //public string easingCurve = Easing.InOut; //Uses Easing in Util.cs
 
     //The GameObject that will receive the SendMessage when this is done moving
     public GameObject reportFinishTo = null;
 
     private RectTransform rectTrans;
-    private Text txt;
+    //private Text txt;
 
     //Set up the FloatingScore and movement
     //Note the use of parameter defaults for eTimes & eTimeD
@@ -60,7 +60,7 @@ public class FloatingScore : MonoBehaviour
         rectTrans = GetComponent<RectTransform>();
         rectTrans.anchoredPosition = Vector2.zero;
 
-        txt = GetComponent<Text>();
+        //txt = GetComponent<Text>();
 
         bezierPts = new List<Vector2>(ePts);
 
@@ -106,13 +106,13 @@ public class FloatingScore : MonoBehaviour
         float u = (Time.time - timeStart) / timeDuration;
 
         //Use Easing class from utils to curve the u value
-        float uC = Easing.Ease(u, easingCurve);
+        //float uC = Easing.Ease(u, easingCurve);
 
         if(u < 0)
         {
             //If u < 0, then we shouldn't move yet.
             state = eFSState.pre;
-            txt.enabled = false; //Hide the score initially
+            //txt.enabled = false; //Hide the score initially
         }
 
         else
@@ -120,7 +120,7 @@ public class FloatingScore : MonoBehaviour
             if(u >= 1)
             {
                 //If u >= 1, we're done moving
-                uC = 1;
+                //uC = 1;
 
                 //Set uC = 1 so we don't overshoot
                 state = eFSState.post;
@@ -148,23 +148,23 @@ public class FloatingScore : MonoBehaviour
             {
                 //0 <= u < 1, which means that this is active and moving
                 state = eFSState.active;
-                txt.enabled = true; //Show the score once more
+                //txt.enabled = true; //Show the score once more
             }
         }
 
         //Use Bezier curve to move this to the right point
-        Vector2 pos = Utils.Bezier(uC, bezierPts);
+        //Vector2 pos = Utils.Bezier(uC, bezierPts);
 
         //RectTransform anchors can be used to the position UI objects relative
         //to total size of the screen
-        rectTrans.anchorMin = rectTrans.anchorMax = pos;
+        //rectTrans.anchorMin = rectTrans.anchorMax = pos;
 
         if(fontSizes != null && fontSizes.Count > 0)
         {
             //If fontSizes has values in it
             //...then adjust the fontSize of this GUIText
-            int size = Mathf.RoundToInt(Utils.Bezier(uC, fontSizes));
-            GetComponent<Text>().fontSizes = size;
+            //int size = Mathf.RoundToInt(Utils.Bezier(uC, fontSizes));
+            //GetComponent<Text>().fontSizes = size;
         }
     }
 }

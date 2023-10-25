@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class Deck : MonoBehaviour
+public class Deck01 : MonoBehaviour
 {
 
 [Header("Set in Inspector")]
@@ -30,7 +30,7 @@ public class Deck : MonoBehaviour
 	public PT_XMLReader					xmlr;
 	// add from p 569
 	public List<string>					cardNames;
-	public List<Card>					cards;
+	public List<Card01>					cards;
 	public List<Decorator>				decorators;
 	public List<CardDefinition>			cardDefs;
 	public Transform					deckAnchor;
@@ -60,15 +60,15 @@ public class Deck : MonoBehaviour
 		
 		// -------- end from page 576
 		ReadDeck (deckXMLText);
-		MakeCards();
+		//MakeCards();
 	}
 
 
-	// ReadDeck parses the XML file passed to it into Card Definitions
+	// ReadDeck parses the XML file passed to it into Card01 Definitions
 	public void ReadDeck(string deckXMLText)
 	{
 		xmlr = new PT_XMLReader ();
-		xmlr.Parse (deckXMLText);
+		/**xmlr.Parse (deckXMLText);
 
 		// print a test line
 		string s = "xml[0] decorator [0] ";
@@ -133,14 +133,14 @@ public class Deck : MonoBehaviour
 				cDef.face = xCardDefs[i].att ("face");
 			}
 			cardDefs.Add (cDef);
-		} // for i < xCardDefs.Count
+		} // for i < xCardDefs.Count*/
 	} // ReadDeck
 	
 	public CardDefinition GetCardDefinitionByRank(int rnk)
 	{
 		foreach(CardDefinition cd in cardDefs)
 		{
-			if (cd.rank == rnk)
+			//if (cd.rank == rnk)
 			{
 					return(cd);
 			}
@@ -163,7 +163,7 @@ public class Deck : MonoBehaviour
 		}
 		
 		// list of all Cards
-		cards = new List<Card>();
+		cards = new List<Card01>();
 		
 		// temp variables
 		Sprite tS = null;
@@ -174,7 +174,7 @@ public class Deck : MonoBehaviour
 		{
 			GameObject cgo = Instantiate(prefabCard) as GameObject;
 			cgo.transform.parent = deckAnchor;
-			Card card = cgo.GetComponent<Card>();
+			Card01 card = cgo.GetComponent<Card01>();
 			
 			cgo.transform.localPosition = new Vector3(i%13*3, i/13*4, 0);
 			
@@ -194,7 +194,7 @@ public class Deck : MonoBehaviour
 			foreach (Decorator deco in decorators) {
 				tGO = Instantiate(prefabSprite) as GameObject;
 				tSR = tGO.GetComponent<SpriteRenderer>();
-				if (deco.type == "suit") {
+				/**if (deco.type == "suit") {
 					tSR.sprite = dictSuits[card.suit];
 				} else { // it is a rank
 					tS = rankSprites[card.rank];
@@ -214,14 +214,14 @@ public class Deck : MonoBehaviour
 					tGO.transform.localScale = Vector3.one * deco.scale;
 				}
 				
-				tGO.name = deco.type;
+				tGO.name = deco.type;*/
 				
 				card.decoGOs.Add (tGO);
 			} // foreach Deco
 			
 			
 			//Add the pips
-			foreach(Decorator pip in card.def.pips) {
+			/**foreach(Decorator pip in card.def.pips) {
 				tGO = Instantiate(prefabSprite) as GameObject;
 				tGO.transform.parent = cgo.transform; 
 				tGO.transform.localPosition = pip.loc;
@@ -242,11 +242,11 @@ public class Deck : MonoBehaviour
 			}
 			
 			//Handle face cards
-			if (card.def.face != "") {
+			if (card.def.face != "")*/ {
 				tGO = Instantiate(prefabSprite) as GameObject;
 				tSR = tGO.GetComponent<SpriteRenderer>();
 				
-				tS = GetFace(card.def.face+card.suit);
+				//tS = GetFace(card.def.face+card.suit);
 				tSR.sprite = tS;
 				tSR.sortingOrder = 1;
 				tGO.transform.parent=card.transform;
@@ -281,9 +281,9 @@ public class Deck : MonoBehaviour
 		return (null);  // couldn't find the sprite (should never reach this line)
 	 }// getFace 
 
-	 static public void Shuffle(ref List<Card> oCards)
+	 static public void Shuffle(ref List<Card01> oCards)
 	 {
-	 	List<Card> tCards = new List<Card>();
+	 	List<Card01> tCards = new List<Card01>();
 
 	 	int ndx;   // which card to move
 

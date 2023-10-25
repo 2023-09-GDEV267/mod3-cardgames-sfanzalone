@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class Card : MonoBehaviour
+public class Card02 : MonoBehaviour
 {
 
 	public string    suit;
@@ -22,7 +22,7 @@ public class Card : MonoBehaviour
 	// Use this for initialization
 	void Start ()
 	{
-		SetOrder(0); //Ensures that the card starts properly depth sorted
+		//SetOrder(0); //Ensures that the card starts properly depth sorted
 	}
 
 	//If spriteRenderers isn't yet defined, this function defines it
@@ -108,7 +108,7 @@ public class Card : MonoBehaviour
 } // class Card
 
 [System.Serializable]
-public class Decorator
+public class Decorator02
 {
 	public string	type;			// For card pips, tyhpe = "pip"
 	public Vector3	loc;			// location of sprite on the card
@@ -117,7 +117,7 @@ public class Decorator
 }
 
 [System.Serializable]
-public class CardDefinition
+public class CardDefinition02
 {
 	public string	face;	//sprite to use for face cart
 	public int		rank;	// value from 1-13 (Ace-King)

@@ -3,13 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 
 // This is actually OUTSIDE of the Utils Class
-public enum BoundsTest {
+public enum BoundsTest01 {
 	center,		// Is the center of the GameObject on screen
 	onScreen,	// Are the bounds entirely on screen
 	offScreen	// Are the bounds entirely off screen
 }
 
-public class Utils : MonoBehaviour {
+public class Utils01 : MonoBehaviour {
 	
 	
 //============================ Bounds Functions ============================\
@@ -391,12 +391,12 @@ public class Utils : MonoBehaviour {
 
 //============================ Easing Classes ============================
 [System.Serializable]
-public class EasingCachedCurve {
+public class EasingCachedCurve01 {
 	public List<string>		curves =	new List<string>();
 	public List<float>		mods = 		new List<float>();
 }
 
-public class Easing {
+public class Easing01 {
 	static public string Linear = 		",Linear|";
 	static public string In = 			",In|";
 	static public string Out =			",Out|";

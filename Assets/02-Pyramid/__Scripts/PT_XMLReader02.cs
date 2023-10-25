@@ -21,7 +21,7 @@ xml["jeremy"][0].att("age");
 
 
 [System.Serializable]
-public class PT_XMLReader {
+public class PT_XMLReader02 {
 	static public bool		SHOW_COMMENTS = false;
 
 	//public string input;

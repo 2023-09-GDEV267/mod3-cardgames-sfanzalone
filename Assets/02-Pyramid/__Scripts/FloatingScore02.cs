@@ -4,7 +4,7 @@ using UnityEngine;
 
 
 //An enum to track the possible states of a FloatingScore
-public enum eFSState
+public enum eFSState02
 {
     idle,
     pre,
@@ -12,7 +12,7 @@ public enum eFSState
     post
 }
 
-public class FloatingScore : MonoBehaviour
+public class FloatingScore02 : MonoBehaviour
 {
     [Header("Set Dynamically")]
 
@@ -37,7 +37,7 @@ public class FloatingScore : MonoBehaviour
             scoreString = _score.ToString("N0"); //"N0" adds commas to the sum
 
             //Search "C# Standard Numeric Format Strings" for ToString formats
-            GetComponent<Text>().text = scoreString;
+            //GetComponent<Text>().text = scoreString;
         }
     }
 
@@ -51,7 +51,7 @@ public class FloatingScore : MonoBehaviour
     public GameObject reportFinishTo = null;
 
     private RectTransform rectTrans;
-    private Text txt;
+    //private Text txt;
 
     //Set up the FloatingScore and movement
     //Note the use of parameter defaults for eTimes & eTimeD
@@ -60,7 +60,7 @@ public class FloatingScore : MonoBehaviour
         rectTrans = GetComponent<RectTransform>();
         rectTrans.anchoredPosition = Vector2.zero;
 
-        txt = GetComponent<Text>();
+        //txt = GetComponent<Text>();
 
         bezierPts = new List<Vector2>(ePts);
 
@@ -85,7 +85,7 @@ public class FloatingScore : MonoBehaviour
         state = eFSState.pre; //Set it into pre state, ready to start moving
     }
 
-    public void FSCallback(FloatingScore fs)
+    public void FSCallback(FloatingScore02 fs)
     {
         //When this callback is called by SendMessage, add the score from the calling
         //FloatingScore
@@ -112,7 +112,7 @@ public class FloatingScore : MonoBehaviour
         {
             //If u < 0, then we shouldn't move yet.
             state = eFSState.pre;
-            txt.enabled = false; //Hide the score initially
+            //txt.enabled = false; //Hide the score initially
         }
 
         else
@@ -148,7 +148,7 @@ public class FloatingScore : MonoBehaviour
             {
                 //0 <= u < 1, which means that this is active and moving
                 state = eFSState.active;
-                txt.enabled = true; //Show the score once more
+                //txt.enabled = true; //Show the score once more
             }
         }
 
@@ -164,7 +164,7 @@ public class FloatingScore : MonoBehaviour
             //If fontSizes has values in it
             //...then adjust the fontSize of this GUIText
             int size = Mathf.RoundToInt(Utils.Bezier(uC, fontSizes));
-            GetComponent<Text>().fontSizes = size;
+            //GetComponent<Text>().fontSizes = size;
         }
     }
 }

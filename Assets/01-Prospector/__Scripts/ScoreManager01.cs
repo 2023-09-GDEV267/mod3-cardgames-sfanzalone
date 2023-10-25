@@ -4,7 +4,7 @@ using UnityEngine;
 
 
 //An enum to handle all the possible scoring events
-public enum eScoreEvent
+public enum eScoreEvent01
 {
     draw,
     mine,
@@ -13,7 +13,7 @@ public enum eScoreEvent
     gameLoss
 }
 
-public class ScoreManager : MonoBehaviour
+public class ScoreManager01 : MonoBehaviour
 {
     static private ScoreManager S;
 
@@ -30,7 +30,7 @@ public class ScoreManager : MonoBehaviour
     {
         if(S == null)
         {
-            S = this; //Set the private singleton
+            //S = this; //Set the private singleton
         }
 
         else
@@ -56,7 +56,7 @@ public class ScoreManager : MonoBehaviour
         try
         {
             //try-catch stops an error from breaking your program
-            S.Event(evt);
+            //S.Event(evt);
         }
 
         catch(System.NullReferenceException nre)

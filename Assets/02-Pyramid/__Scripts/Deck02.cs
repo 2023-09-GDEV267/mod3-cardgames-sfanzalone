@@ -30,7 +30,7 @@ public class Deck : MonoBehaviour
 	public PT_XMLReader					xmlr;
 	// add from p 569
 	public List<string>					cardNames;
-	public List<Card>					cards;
+	public List<Card02>					cards;
 	public List<Decorator>				decorators;
 	public List<CardDefinition>			cardDefs;
 	public Transform					deckAnchor;
@@ -163,7 +163,7 @@ public class Deck : MonoBehaviour
 		}
 		
 		// list of all Cards
-		cards = new List<Card>();
+		cards = new List<Card02>();
 		
 		// temp variables
 		Sprite tS = null;
@@ -174,7 +174,7 @@ public class Deck : MonoBehaviour
 		{
 			GameObject cgo = Instantiate(prefabCard) as GameObject;
 			cgo.transform.parent = deckAnchor;
-			Card card = cgo.GetComponent<Card>();
+			Card02 card = cgo.GetComponent<Card02>();
 			
 			cgo.transform.localPosition = new Vector3(i%13*3, i/13*4, 0);
 			
@@ -281,9 +281,9 @@ public class Deck : MonoBehaviour
 		return (null);  // couldn't find the sprite (should never reach this line)
 	 }// getFace 
 
-	 static public void Shuffle(ref List<Card> oCards)
+	 static public void Shuffle(ref List<Card02> oCards)
 	 {
-	 	List<Card> tCards = new List<Card>();
+	 	List<Card02> tCards = new List<Card02>();
 
 	 	int ndx;   // which card to move
 

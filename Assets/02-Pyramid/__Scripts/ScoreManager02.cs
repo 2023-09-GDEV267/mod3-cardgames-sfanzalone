@@ -13,9 +13,9 @@ public enum eScoreEvent
     gameLoss
 }
 
-public class ScoreManager : MonoBehaviour
+public class ScoreManager02 : MonoBehaviour
 {
-    static private ScoreManager S;
+    static private ScoreManager02 S;
 
     static public int SCORE_FROM_PREV_ROUND = 0;
     static public int HIGH_SCORE = 0;

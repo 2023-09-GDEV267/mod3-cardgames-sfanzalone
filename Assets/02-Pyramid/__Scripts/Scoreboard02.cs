@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Scoreboard : MonoBehaviour
+public class Scoreboard02 : MonoBehaviour
 {
-    public static Scoreboard S; //The singleton for Scoreboard
+    public static Scoreboard02 S; //The singleton for Scoreboard
 
     [Header("Set in Inspector")]
 
@@ -64,7 +64,7 @@ public class Scoreboard : MonoBehaviour
     }
 
     //When called by SendMessage, this adds the fs.score to this.score
-    public void FSCallback(FloatingScore fs)
+    public void FSCallback(FloatingScore02 fs)
     {
         score += fs.score;
     }
@@ -72,11 +72,11 @@ public class Scoreboard : MonoBehaviour
     //This will Instantiate a new FloatingScore GameObject and instantiate it.
     //It also returns a pointer to the FloatingScore created so that the 
     //calling function can do more with it (like set fontSizes, and so on).
-    public FloatingScore CreateFloatingScore(int amt, List<Vector2> pts)
+    public FloatingScore02 CreateFloatingScore(int amt, List<Vector2> pts)
     {
         GameObject go = Instantiate<GameObject>(prefabFloatingScore);
         go.transform.SetParent(canvasTrans);
-        FloatingScore fs = go.GetComponent<FloatingScore>();
+        FloatingScore02 fs = go.GetComponent<FloatingScore02>();
         fs.score = amt;
         fs.reportFinishTo = this.gameObject; //Set fs to call back to this
         fs.Init(pts);

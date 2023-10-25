@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Scoreboard : MonoBehaviour
+public class Scoreboard01 : MonoBehaviour
 {
-    public static Scoreboard S; //The singleton for Scoreboard
+    public static Scoreboard01 S; //The singleton for Scoreboard
 
     [Header("Set in Inspector")]
 
@@ -19,7 +19,7 @@ public class Scoreboard : MonoBehaviour
     private Transform canvasTrans;
 
     //The score property also sets the scoreString
-    public int score
+    /**public int score
     {
         get
         {
@@ -82,5 +82,5 @@ public class Scoreboard : MonoBehaviour
         fs.Init(pts);
 
         return (fs);
-    }
+    }*/
 }

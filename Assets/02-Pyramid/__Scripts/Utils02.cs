@@ -9,7 +9,7 @@ public enum BoundsTest {
 	offScreen	// Are the bounds entirely off screen
 }
 
-public class Utils : MonoBehaviour {
+public class Utils02 : MonoBehaviour {
 	
 	
 //============================ Bounds Functions ============================\

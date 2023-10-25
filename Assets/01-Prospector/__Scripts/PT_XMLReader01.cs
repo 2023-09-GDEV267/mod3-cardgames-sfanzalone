@@ -21,7 +21,7 @@ xml["jeremy"][0].att("age");
 
 
 [System.Serializable]
-public class PT_XMLReader {
+public class PT_XMLReader01 {
 	static public bool		SHOW_COMMENTS = false;
 
 	//public string input;
@@ -69,7 +69,7 @@ public class PT_XMLReader {
 				// In that case, we just need to add an @ key/value to the hashtable
 				eS = eS.Trim(); // I think this is redundant
 				//eH["@"] = eS;
-				eH.text = eS;
+				//eH.text = eS;
 			}
 			return(""); // We're done with this tag
 		}
@@ -79,7 +79,7 @@ public class PT_XMLReader {
 			int ndx2 = eS.IndexOf("?>");
 			string header = eS.Substring(ndx, ndx2-ndx+2);
 			//eH["@XML_Header"] = header;
-			eH.header = header;
+			//eH.header = header;
 			return(eS.Substring(ndx2+2));
 		}
 		// Ignore this if it is an XML comment (e.g. <!-- Comment text -->)
@@ -106,14 +106,14 @@ public class PT_XMLReader {
 		string tag = eS.Substring(ndx+1, end-ndx-1);
 		
 		// search for this tag in eH. If it's not there, make it
-		if (!eH.ContainsKey(tag)) {
+		/**if (!eH.ContainsKey(tag)) {
 			eH[tag] = new PT_XMLHashList();
 		}
 		// Create a hashtable to contain this tag's information
 		PT_XMLHashList arrL = eH[tag] as PT_XMLHashList;
 		//int thisHashIndex = arrL.Count;
 		PT_XMLHashtable thisHash = new PT_XMLHashtable();
-		arrL.Add(thisHash);
+		arrL.Add(thisHash);*/
 		
 		// Pull the attributes string
 		string atts = "";
@@ -148,7 +148,7 @@ public class PT_XMLReader {
 			}
 			val = val.Trim('\"');
 			//thisHash[att] = val; // All attributes have to be unique, so this should be okay.
-			thisHash.attSet(att, val);
+			//thisHash.attSet(att, val);
 		}
 		
 		
@@ -174,7 +174,7 @@ public class PT_XMLReader {
 		subs = subs.Trim();
 		// Call Parse if this contains subs
 		if (subs.Length > 0) {
-			Parse(subs, thisHash);
+			//Parse(subs, thisHash);
 		}
 		
 		// Trim and return the leftover string
@@ -187,7 +187,7 @@ public class PT_XMLReader {
 
 
 
-public class PT_XMLHashList {
+public class PT_XMLHashList01 {
 	public ArrayList list = new ArrayList();
 	
 	public PT_XMLHashtable this[int s] {
@@ -217,7 +217,7 @@ public class PT_XMLHashList {
 }
 
 
-public class PT_XMLHashtable {
+public class PT_XMLHashtable01 {
 	
 	public List<string>				keys = new List<string>();
 	public List<PT_XMLHashList>		nodesList = new List<PT_XMLHashList>();
