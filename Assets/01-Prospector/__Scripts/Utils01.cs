@@ -460,7 +460,6 @@ public class Easing01
 				//string[] curveA = 
 			}
 			
-	}
 		string[] curve = func.Split(',');
 		
 		foreach (string curve in curves)
@@ -471,6 +470,8 @@ public class Easing01
 		string[] funcSplit;
 		foreach (string f in funcs)
 			funcSplit = f.Split('|');
+	}
+		
 }
 		
 	

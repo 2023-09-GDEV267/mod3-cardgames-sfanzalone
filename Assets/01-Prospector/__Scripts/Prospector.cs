@@ -163,6 +163,16 @@ public class Prospector : MonoBehaviour
 			tableau.Add(cp); //Add this CardProspector to the List<> tableau		
 		}
 
+		//Set which cards are hiding others
+		foreach (CardProspector tCP in tableau)
+		{
+			foreach (int hid in tCP.slotDef.hiddenBy)
+			{
+				cp = FindCardByLayoutID(hid);
+				tCP.hiddenBy.Add(cp);
+			}
+		}
+
 		//Set up the initial target card
 		MoveToTarget(Draw());
 
@@ -236,18 +246,6 @@ public class Prospector : MonoBehaviour
 			cd.SetSortingLayerName(layout.drawPile.layerName);
 			cd.SetSortOrder(-10 * i);
         }
-	}
-
-	
-
-	//Set which cards are hiding others
-	foreach(CardProspector tCP in tableau)
-	{
-		foreach(int hid in tCP.slotDef.hiddenAway)
-		{
-			cp = FindCardByLayoutID(hid);
-			tCP.hiddenBy.Add(cp);
-		}
 	}
 
 	//Convert from the layoutID int to the CardProspector with that ID
