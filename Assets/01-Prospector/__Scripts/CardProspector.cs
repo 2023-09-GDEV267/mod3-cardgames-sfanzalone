@@ -28,7 +28,7 @@ public class CardProspector : Card01
     public SlotDef slotDef;
 
     //This allows the card to react to being clicked
-    public override void OnMouseUpAsButton()
+    override public void OnMouseUpAsButton()
     {
         //Call the CardClicked method on the Prospector singleton
         Prospector.S.CardClicked(this);

@@ -22,7 +22,7 @@ public class Card01 : MonoBehaviour
 	// Use this for initialization
 	void Start ()
 	{
-		//SetOrder(0); //Ensures that the card starts properly depth sorted
+		SetOrder(0); //Ensures that the card starts properly depth sorted
 	}
 
 	//If spriteRenderers isn't yet defined, this function defines it
@@ -59,6 +59,7 @@ public class Card01 : MonoBehaviour
             {
 				//If the gameObject is this.gameObject, its the background
 				tSR.sortingOrder = sOrd; //Set its order to sOrd
+				
 				continue; //And continue to the next iteration of the loop
             }
 

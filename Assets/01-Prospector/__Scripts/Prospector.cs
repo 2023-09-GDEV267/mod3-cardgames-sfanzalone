@@ -69,30 +69,34 @@ public class Prospector : MonoBehaviour
 		}
 
 		//Make the end of round texts invisible
-		ShowResultsUI(bool show)
-		{
-			gameOverText.gameObject.SetActive(show);
-			roundResultText.gameObject.SetActive(show);
-        }
+		ShowResultsUI(false);
+	}
+
+	//Make the end of round texts invisible
+	void ShowResultsUI(bool show)
+	{
+		gameOverText.gameObject.SetActive(show);
+		roundResultText.gameObject.SetActive(show);
 	}
 
 	void Start()
 	{
 		Scoreboard01.S.score = ScoreManager01.SCORE;
 					
-		deck = GetComponent<Deck>();
-		deck.InitDeck (deckXML.text);
-		Deck.Shuffle(ref deck.cards);
+		deck = GetComponent<Deck01>(); //Get the Deck
+		deck.InitDeck (deckXML.text); //Pass DeckXML to it
+		Deck01.Shuffle(ref deck.cards); //This shuffles the deck
 		drawPile = ConvertListCardsToListCardProspectors(deck.cards);
 		LayoutGame();
 
-		Card01 c;
+		//This code here needs to stay commented
+		/**Card01 c;
 
 		for(int cNum = 0; cNum < deck.cards.Count; cNum++) 
 		{
 			c = deck.cards[cNum];
 			c.transform.localPosition = new Vector3((cNum % 13) * 3, cNum / 13 * 4, 0);
-		}
+		}*/
 
 		layout = GetComponent<Layout>(); //Get the Layout component
 		layout.ReadLayout(layoutXML.text); //Pass LayoutXML to it
@@ -133,7 +137,38 @@ public class Prospector : MonoBehaviour
 			layoutAnchor = tGO.transform; //Grab its Transform
 			layoutAnchor.transform.position = layoutCenter; //Position it
         }
-    }
+
+		CardProspector cp;
+
+		//Follow the layout
+		foreach (SlotDef tSD in layout.slotDefs)
+		{
+			//^Iterate through all the SlotDefs in the layout.slotDefs as tSD
+			cp = Draw(); //Pull a card from the top (beginning) of the draw Pile
+			cp.faceUp = tSD.faceUp; //Set its faceUp to the value in slotDef
+			cp.transform.parent = layoutAnchor; //Make its parent layoutAnchor
+
+			//This replaces the previous parent: deck.deckAnchor, which appears as _Deck
+			//in the Hierarchy when the scene is playing.
+			cp.transform.localPosition = new Vector3(layout.multiplier.x * tSD.x, layout.multiplier.y * tSD.y,
+														-tSD.layerID);
+			//^Set the localPosition of the card based on slotDef
+			cp.layoutID = tSD.id;
+			cp.slotDef = tSD;
+
+			//CardProspectors in the tableau have the state CardState.tableau
+			cp.state = eCardState.tableau;
+			cp.SetSortingLayerName(tSD.layerName); //Set the sorting layers
+
+			tableau.Add(cp); //Add this CardProspector to the List<> tableau		
+		}
+
+		//Set up the initial target card
+		MoveToTarget(Draw());
+
+		//Set up the Draw pile
+		UpdateDrawPile();
+	}
 	
 	//Moves the current target to the discardPile
 	void MoveToDiscard(CardProspector cd)
@@ -155,7 +190,7 @@ public class Prospector : MonoBehaviour
     }
 
 	 void MoveToTarget(CardProspector cd)
-    {
+     {
 		//If there is currently a target card, move it to discardPile
 		if(target != null)
         {
@@ -171,12 +206,12 @@ public class Prospector : MonoBehaviour
 		cd.transform.localPosition = new Vector3(layout.multiplier.x * layout.discardPile.x,
 													layout.multiplier.y * layout.discardPile.y,
 													-layout.discardPile.layerID);
-		cd.faceUp = true;
+		cd.faceUp = true; //Make it face-up
 
-		//Place it on top of the pile for depth sorting
+		//Set the depth sorting
 		cd.SetSortingLayerName(layout.discardPile.layerName);
-		cd.SetSortOrder(-100 + discardPile.Count);
-	}
+		cd.SetSortOrder(0);
+	 }
 
 	void UpdateDrawPile()
     {
@@ -190,10 +225,11 @@ public class Prospector : MonoBehaviour
 
 			//Position it correctly with the layout.drawPile.stagger
 			Vector2 dpStagger = layout.drawPile.stagger;
-			cd.transform.localPosition = new Vector3(layout.multiplier.x * layout.discardPile.x,
-													layout.multiplier.y * layout.discardPile.y,
+			cd.transform.localPosition = new Vector3(layout.multiplier.x * (layout.discardPile.x +
+													i * dpStagger.x), layout.multiplier.y *
+													(layout.discardPile.y + i * dpStagger.y),
 													-layout.drawPile.layerID + 0.1f * i);
-			cd.faceUp = false; //Make them all face down
+			cd.faceUp = false; //Make them all face-down
 			cd.state = eCardState.drawpile;
 
 			//Set depth sorting 
@@ -202,30 +238,7 @@ public class Prospector : MonoBehaviour
         }
 	}
 
-	CardProspector cp;
-
-	//Follow the layout
-	foreach(SlotDef tSD in layout.slotDefs)
-	{
-		//^Iterate through all the SlotDefs in the layout.slotDefs as tSD
-		cp = Draw(); //Pull a card from the top (beginning) of the draw Pile
-		cp.faceUp = tSD.faceUp; //Set its faceUp to the value in slotDef
-		cp.transform.parent = layoutAnchor; //Make its parent layoutAnchor
-
-		//This replaces the previous parent: deck.deckAnchor, which appears as _Deck
-		//in the Hierarchy when the scene is playing.
-		cp.transform.localPosition = new Vector3(layout.multiplier.x* tSD.x, layout.multiplier.y* tSD.y,
-													-tSD.layerID);
-		//^Set the localPosition of the card based on slotDef
-		cp.layoutID = tSD.id;
-		cp.slotDef = tSD;
-
-		//CardProspectors in the tableau have the state CardState.tableau
-		cp.state = eCardState.tableau;
-		cp.SetSortingLayerName(tSD.layerName); //Set the sorting layers
-
-		tableau.Add(cp); //Add this CardProspector to the List<> tableau		
-	}
+	
 
 	//Set which cards are hiding others
 	foreach(CardProspector tCP in tableau)
@@ -236,12 +249,6 @@ public class Prospector : MonoBehaviour
 			tCP.hiddenBy.Add(cp);
 		}
 	}
-
-	//Set up the initial target card
-	MoveToTarget(Draw());
-
-	//Set up the Draw pile
-	UpdateDrawPile();
 
 	//Convert from the layoutID int to the CardProspector with that ID
 	CardProspector FindCardByLayoutID(int layoutID)
@@ -279,7 +286,7 @@ public class Prospector : MonoBehaviour
 	
 
 	//CardClicked is called any time a card in the game is clicked
-	void CardClicked(CardProspector cd)
+	public void CardClicked(CardProspector cd)
 	{
 		//The reaction is determined by the state of the clicked card
 		switch (cd.state)
