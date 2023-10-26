@@ -24,7 +24,7 @@ public class Prospector : MonoBehaviour
 
 
 	[Header("Set Dynamically")]
-	public Deck	deck;
+	public Deck01 deck;
 	public Layout layout;
 	public List<CardProspector> drawPile;
 	public Transform layoutAnchor;
@@ -279,7 +279,7 @@ public class Prospector : MonoBehaviour
 	
 
 	//CardClicked is called any time a card in the game is clicked
-	public void CardClicked(CardProspector cd)
+	void CardClicked(CardProspector cd)
 	{
 		//The reaction is determined by the state of the clicked card
 		switch (cd.state)

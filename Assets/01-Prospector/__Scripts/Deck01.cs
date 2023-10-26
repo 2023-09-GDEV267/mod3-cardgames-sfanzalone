@@ -82,7 +82,7 @@ public class Deck01 : MonoBehaviour
 		// these are the small numbers/suits in the corners
 		decorators = new List<Decorator>();
 		// grab all decorators from the XML file
-		PT_XMLHashList xDecos = xmlr.xml["xml"][0]["decorator"];
+		PT_XMLHashList01 xDecos = xmlr.xml["xml"][0]["decorator"];
 		Decorator deco;
 		for (int i=0; i<xDecos.Count; i++) {
 			// for each decorator in the XML, copy attributes and set up location and flip if needed
@@ -99,14 +99,14 @@ public class Deck01 : MonoBehaviour
 		// read pip locations for each card rank
 		// read the card definitions, parse attribute values for pips
 		cardDefs = new List<CardDefinition>();
-		PT_XMLHashList xCardDefs = xmlr.xml["xml"][0]["card"];
+		PT_XMLHashList01 xCardDefs = xmlr.xml["xml"][0]["card"];
 		
 		for (int i=0; i<xCardDefs.Count; i++) {
 			// for each carddef in the XML, copy attributes and set up in cDef
 			CardDefinition cDef = new CardDefinition();
 			cDef.rank = int.Parse(xCardDefs[i].att("rank"));
 			
-			PT_XMLHashList xPips = xCardDefs[i]["pip"];
+			PT_XMLHashList01 xPips = xCardDefs[i]["pip"];
 			if (xPips != null)
 			{			
 				for (int j = 0; j < xPips.Count; j++)
@@ -194,9 +194,12 @@ public class Deck01 : MonoBehaviour
 			foreach (Decorator deco in decorators) {
 				tGO = Instantiate(prefabSprite) as GameObject;
 				tSR = tGO.GetComponent<SpriteRenderer>();
-				/**if (deco.type == "suit") {
+				if (deco.type == "suit")
+				{
 					tSR.sprite = dictSuits[card.suit];
-				} else { // it is a rank
+				}
+				else
+				{ // it is a rank
 					tS = rankSprites[card.rank];
 					tSR.sprite = tS;
 					tSR.color = card.color;
@@ -206,31 +209,36 @@ public class Deck01 : MonoBehaviour
 				tGO.transform.parent = cgo.transform;     // make deco a child of card GO
 				tGO.transform.localPosition = deco.loc;   // set the deco's local position
 				
-				if (deco.flip) {
+				if (deco.flip)
+				{
 					tGO.transform.rotation = Quaternion.Euler(0,0,180);
 				}
 				
-				if (deco.scale != 1) {
+				if (deco.scale != 1)
+				{
 					tGO.transform.localScale = Vector3.one * deco.scale;
 				}
 				
-				tGO.name = deco.type;*/
+				tGO.name = deco.type;
 				
 				card.decoGOs.Add (tGO);
 			} // foreach Deco
 			
 			
 			//Add the pips
-			foreach(Decorator pip in card.def.pips) {
+			foreach(Decorator pip in card.def.pips)
+			{
 				tGO = Instantiate(prefabSprite) as GameObject;
 				tGO.transform.parent = cgo.transform; 
 				tGO.transform.localPosition = pip.loc;
 				
-				if (pip.flip) {
+				if (pip.flip)
+				{
 					tGO.transform.rotation = Quaternion.Euler(0,0,180);
 				}
 				
-				if (pip.scale != 1) {
+				if (pip.scale != 1)
+				{
 					tGO.transform.localScale = Vector3.one * pip.scale;
 				}
 				
@@ -300,9 +308,5 @@ public class Deck01 : MonoBehaviour
 
 	 	//because oCards is a ref parameter, the changes made are propogated back
 	 	//for ref paramters changes made in the function persist.
-
-
 	 }
-
-
 } // Deck class

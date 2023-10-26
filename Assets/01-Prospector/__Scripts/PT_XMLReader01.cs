@@ -55,7 +55,8 @@ public class PT_XMLReader01
 	void Parse(string eS, PT_XMLHashtable01 eH)
 	{
 		eS = eS.Trim();
-		while(eS.Length > 0) {
+		while(eS.Length > 0)
+		{
 			eS = ParseTag(eS, eH);
 			eS = eS.Trim();
 		}
@@ -67,19 +68,23 @@ public class PT_XMLReader01
 		// search for "<"
 		int ndx = eS.IndexOf("<");
 		int end, end1, end2, end3;
-		if (ndx == -1) {
+		if (ndx == -1)
+		{
 			// It's possible that this is just a string (e.g. <someTagTheStringIsInside>string</someTagTheStringIsInside>)
 			end3 = eS.IndexOf(">"); // This closes a standard tag; look for the closing tag
-			if (end3 == -1) {
+			if (end3 == -1)
+			{
 				// In that case, we just need to add an @ key/value to the hashtable
 				eS = eS.Trim(); // I think this is redundant
 				eH["@"] = eS;
 				eH.text = eS;
 			}
+			
 			return(""); // We're done with this tag
 		}
 		// Ignore this if it is just an XML header (e.g. <?xml version="1.0"?>)
-		if (eS[ndx+1] == '?') {
+		if (eS[ndx+1] == '?')
+		{
 			// search for the closing tag of this header
 			int ndx2 = eS.IndexOf("?>");
 			string header = eS.Substring(ndx, ndx2-ndx+2);
@@ -88,7 +93,8 @@ public class PT_XMLReader01
 			return(eS.Substring(ndx2+2));
 		}
 		// Ignore this if it is an XML comment (e.g. <!-- Comment text -->)
-		if (eS[ndx+1] == '!') {
+		if (eS[ndx+1] == '!')
+		{
 			// search for the closing tag of this header
 			int ndx2 = eS.IndexOf("-->");
 			string comment = eS.Substring(ndx, ndx2-ndx+3);
@@ -117,7 +123,7 @@ public class PT_XMLReader01
 		}
 		// Create a hashtable to contain this tag's information
 		PT_XMLHashList01 arrL = eH[tag] as PT_XMLHashList01;
-		//int thisHashIndex = arrL.Count;
+		int thisHashIndex = arrL.Count;
 		PT_XMLHashtable01 thisHash = new PT_XMLHashtable01();
 		arrL.Add(thisHash);
 		
@@ -135,6 +141,7 @@ public class PT_XMLReader01
 				Debug.Log("break");
 			}
 		}
+		
 		// Parse the attributes, which are all guaranteed to be strings
 		string att, val;
 		int eqNdx, spNdx;
@@ -143,19 +150,25 @@ public class PT_XMLReader01
 			atts = atts.Trim();
 			eqNdx = atts.IndexOf("=");
 			if (eqNdx == -1) break;
-			//att = "@"+atts.Substring(0,eqNdx);
+			att = "@"+atts.Substring(0,eqNdx);
 			att = atts.Substring(0,eqNdx);
 			spNdx = atts.IndexOf(" ",eqNdx);
-			if (spNdx == -1) { // This is the last attribute and doesn't have a space after it
+			if (spNdx == -1)
+			{ // This is the last attribute and doesn't have a space after it
 				val = atts.Substring(eqNdx+1);
-				if (val[val.Length-1] == '/') { // If the trailing / from /> was caught, remove it
+				if (val[val.Length-1] == '/')
+				{ // If the trailing / from /> was caught, remove it
 					val = val.Substring(0,val.Length-1);
 				}
+				
 				atts = "";
-			} else { // This attribute has a space after it
+			}
+			else
+			{ // This attribute has a space after it
 				val = atts.Substring(eqNdx+1, spNdx - eqNdx - 2);
 				atts = atts.Substring(spNdx);
 			}
+			
 			val = val.Trim('\"');
 			thisHash[att] = val; // All attributes have to be unique, so this should be okay.
 			thisHash.attSet(att, val);
@@ -171,12 +184,14 @@ public class PT_XMLReader01
 		{ // This is a multiline tag (e.g. <tag> ....  </tag>)
 			// find the closing tag
 			int close = eS.IndexOf("</"+tag+">");
+
 // TODO: Should this do something more if there is no closing tag?
 			if (close == -1)
 			{
 				Debug.Log("XMLReader ERROR: XML not well formed. Closing tag </"+tag+"> missing.");
 				return("");
 			}
+			
 			subs = eS.Substring(end3+1, close-end3-1);
 			leftoverString = eS.Substring( eS.IndexOf(">",close)+1 );
 		}
@@ -197,7 +212,6 @@ public class PT_XMLReader01
 		return(leftoverString);
 	
 	}
-	
 }
 
 
