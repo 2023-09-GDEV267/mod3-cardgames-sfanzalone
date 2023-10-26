@@ -38,6 +38,7 @@ public class PT_XMLReader01
 		print(input);
 		output = new XMLHashtable();
 		Parse(input, output);
+		
 		// TODO: Make something which will trace a Hashtable or output it as XML
 		print(output["videocollection"][0]["video"][1]["title"][0].text);
 	}
