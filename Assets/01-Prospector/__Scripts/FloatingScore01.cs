@@ -37,7 +37,7 @@ public class FloatingScore01 : MonoBehaviour
             scoreString = _score.ToString("N0"); //"N0" adds commas to the sum
 
             //Search "C# Standard Numeric Format Strings" for ToString formats
-            //GetComponent<Text>().text = scoreString;
+            GetComponent<Text>().text = scoreString;
         }
     }
 
@@ -45,7 +45,7 @@ public class FloatingScore01 : MonoBehaviour
     public List<float> fontSizes; //Bezier points for font scaling
     public float timeStart = -1f;
     public float timeDuration = 1f;
-    //public string easingCurve = Easing.InOut; //Uses Easing in Util.cs
+    public string easingCurve = Easing01.InOut; //Uses Easing in Util.cs
 
     //The GameObject that will receive the SendMessage when this is done moving
     public GameObject reportFinishTo = null;
@@ -85,7 +85,7 @@ public class FloatingScore01 : MonoBehaviour
         state = eFSState.pre; //Set it into pre state, ready to start moving
     }
 
-    public void FSCallback(FloatingScore fs)
+    public void FSCallback(FloatingScore01 fs)
     {
         //When this callback is called by SendMessage, add the score from the calling
         //FloatingScore
@@ -112,7 +112,7 @@ public class FloatingScore01 : MonoBehaviour
         {
             //If u < 0, then we shouldn't move yet.
             state = eFSState.pre;
-            //txt.enabled = false; //Hide the score initially
+            txt.enabled = false; //Hide the score initially
         }
 
         else
@@ -148,23 +148,23 @@ public class FloatingScore01 : MonoBehaviour
             {
                 //0 <= u < 1, which means that this is active and moving
                 state = eFSState.active;
-                //txt.enabled = true; //Show the score once more
+                txt.enabled = true; //Show the score once more
             }
         }
 
         //Use Bezier curve to move this to the right point
-        //Vector2 pos = Utils.Bezier(uC, bezierPts);
+        Vector2 pos = Utils01.Bezier(uC, bezierPts);
 
         //RectTransform anchors can be used to the position UI objects relative
         //to total size of the screen
-        //rectTrans.anchorMin = rectTrans.anchorMax = pos;
+        rectTrans.anchorMin = rectTrans.anchorMax = pos;
 
         if(fontSizes != null && fontSizes.Count > 0)
         {
             //If fontSizes has values in it
             //...then adjust the fontSize of this GUIText
-            //int size = Mathf.RoundToInt(Utils.Bezier(uC, fontSizes));
-            //GetComponent<Text>().fontSizes = size;
+            int size = Mathf.RoundToInt(Utils01.Bezier(uC, fontSizes));
+            GetComponent<Text>().fontSizes = size;
         }
     }
 }

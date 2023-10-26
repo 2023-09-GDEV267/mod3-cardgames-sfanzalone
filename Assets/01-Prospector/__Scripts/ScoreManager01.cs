@@ -15,7 +15,7 @@ public enum eScoreEvent01
 
 public class ScoreManager01 : MonoBehaviour
 {
-    static private ScoreManager S;
+    static private ScoreManager01 S;
 
     static public int SCORE_FROM_PREV_ROUND = 0;
     static public int HIGH_SCORE = 0;
@@ -56,7 +56,7 @@ public class ScoreManager01 : MonoBehaviour
         try
         {
             //try-catch stops an error from breaking your program
-            //S.Event(evt);
+            S.Event(evt);
         }
 
         catch(System.NullReferenceException nre)

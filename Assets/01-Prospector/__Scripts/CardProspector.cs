@@ -11,7 +11,7 @@ public enum eCardState
     discard
 }
 
-public class CardProspector : Card
+public class CardProspector : Card01
 {
     [Header("Set Dynamically: CardProspector")]
 

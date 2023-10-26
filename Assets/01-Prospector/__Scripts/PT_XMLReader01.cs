@@ -21,16 +21,18 @@ xml["jeremy"][0].att("age");
 
 
 [System.Serializable]
-public class PT_XMLReader01 {
+public class PT_XMLReader01
+{
 	static public bool		SHOW_COMMENTS = false;
 
 	//public string input;
 	//public TextAsset inputTA;
 	public string xmlText;
-	public PT_XMLHashtable xml;
+	public PT_XMLHashtable01 xml;
 	
-	/*
-	void Awake() {
+	
+	void Awake()
+	{
 		inputTA = Resources.Load("WellFormedSample") as TextAsset;	
 		input = inputTA.text;
 		print(input);
@@ -39,17 +41,19 @@ public class PT_XMLReader01 {
 		// TODO: Make something which will trace a Hashtable or output it as XML
 		print(output["videocollection"][0]["video"][1]["title"][0].text);
 	}
-	*/
+	
 	
 	// This function creates a new XMLHashtable and calls the real Parse()
-	public void Parse(string eS) {
+	public void Parse(string eS)
+	{
 		xmlText = eS;
-		xml = new PT_XMLHashtable();
+		xml = new PT_XMLHashtable01();
 		Parse(eS, xml);
 	}
 	
 	// This function will parse a possible series of tags
-	void Parse(string eS, PT_XMLHashtable eH) {
+	void Parse(string eS, PT_XMLHashtable01 eH)
+	{
 		eS = eS.Trim();
 		while(eS.Length > 0) {
 			eS = ParseTag(eS, eH);
@@ -58,7 +62,8 @@ public class PT_XMLReader01 {
 	}
 	
 	// This function parses a single tag and calls Parse() if it encounters subtags
-	string ParseTag(string eS, PT_XMLHashtable eH) {
+	string ParseTag(string eS, PT_XMLHashtable01 eH)
+	{
 		// search for "<"
 		int ndx = eS.IndexOf("<");
 		int end, end1, end2, end3;
@@ -68,8 +73,8 @@ public class PT_XMLReader01 {
 			if (end3 == -1) {
 				// In that case, we just need to add an @ key/value to the hashtable
 				eS = eS.Trim(); // I think this is redundant
-				//eH["@"] = eS;
-				//eH.text = eS;
+				eH["@"] = eS;
+				eH.text = eS;
 			}
 			return(""); // We're done with this tag
 		}
@@ -78,8 +83,8 @@ public class PT_XMLReader01 {
 			// search for the closing tag of this header
 			int ndx2 = eS.IndexOf("?>");
 			string header = eS.Substring(ndx, ndx2-ndx+2);
-			//eH["@XML_Header"] = header;
-			//eH.header = header;
+			eH["@XML_Header"] = header;
+			eH.header = header;
 			return(eS.Substring(ndx2+2));
 		}
 		// Ignore this if it is an XML comment (e.g. <!-- Comment text -->)
@@ -88,7 +93,7 @@ public class PT_XMLReader01 {
 			int ndx2 = eS.IndexOf("-->");
 			string comment = eS.Substring(ndx, ndx2-ndx+3);
 			if (SHOW_COMMENTS) Debug.Log("XMl Comment: "+comment);
-			//eH["@XML_Header"] = header;
+			eH["@XML_Header"] = header;
 			return(eS.Substring(ndx2+3));
 		}
 		
@@ -106,22 +111,26 @@ public class PT_XMLReader01 {
 		string tag = eS.Substring(ndx+1, end-ndx-1);
 		
 		// search for this tag in eH. If it's not there, make it
-		/**if (!eH.ContainsKey(tag)) {
-			eH[tag] = new PT_XMLHashList();
+		if (!eH.ContainsKey(tag))
+		{
+			eH[tag] = new PT_XMLHashList01();
 		}
 		// Create a hashtable to contain this tag's information
-		PT_XMLHashList arrL = eH[tag] as PT_XMLHashList;
+		PT_XMLHashList01 arrL = eH[tag] as PT_XMLHashList01;
 		//int thisHashIndex = arrL.Count;
-		PT_XMLHashtable thisHash = new PT_XMLHashtable();
-		arrL.Add(thisHash);*/
+		PT_XMLHashtable01 thisHash = new PT_XMLHashtable01();
+		arrL.Add(thisHash);
 		
 		// Pull the attributes string
 		string atts = "";
-		if (end1 < end3) {
-			try {
+		if (end1 < end3)
+		{
+			try
+			{
 				atts = eS.Substring(end1, end3-end1);
 			}
-			catch(System.Exception ex) {
+			catch(System.Exception ex)
+			{
 				Debug.LogException(ex);
 				Debug.Log("break");
 			}
@@ -129,7 +138,8 @@ public class PT_XMLReader01 {
 		// Parse the attributes, which are all guaranteed to be strings
 		string att, val;
 		int eqNdx, spNdx;
-		while (atts.Length > 0) {
+		while (atts.Length > 0)
+		{
 			atts = atts.Trim();
 			eqNdx = atts.IndexOf("=");
 			if (eqNdx == -1) break;
@@ -147,8 +157,8 @@ public class PT_XMLReader01 {
 				atts = atts.Substring(spNdx);
 			}
 			val = val.Trim('\"');
-			//thisHash[att] = val; // All attributes have to be unique, so this should be okay.
-			//thisHash.attSet(att, val);
+			thisHash[att] = val; // All attributes have to be unique, so this should be okay.
+			thisHash.attSet(att, val);
 		}
 		
 		
@@ -157,24 +167,29 @@ public class PT_XMLReader01 {
 		string leftoverString = "";
 		// singleLine means this doesn't have a separate closing tag (e.g. <tag att="hi" />)
 		bool singleLine = (end2 == end3-1);// ? true : false;
-		if (!singleLine) { // This is a multiline tag (e.g. <tag> ....  </tag>)
+		if (!singleLine)
+		{ // This is a multiline tag (e.g. <tag> ....  </tag>)
 			// find the closing tag
 			int close = eS.IndexOf("</"+tag+">");
 // TODO: Should this do something more if there is no closing tag?
-			if (close == -1) {
+			if (close == -1)
+			{
 				Debug.Log("XMLReader ERROR: XML not well formed. Closing tag </"+tag+"> missing.");
 				return("");
 			}
 			subs = eS.Substring(end3+1, close-end3-1);
 			leftoverString = eS.Substring( eS.IndexOf(">",close)+1 );
-		} else {
+		}
+		else
+		{
 			leftoverString = eS.Substring(end3+1);
 		}
 		
 		subs = subs.Trim();
 		// Call Parse if this contains subs
-		if (subs.Length > 0) {
-			//Parse(subs, thisHash);
+		if (subs.Length > 0)
+		{
+			Parse(subs, thisHash);
 		}
 		
 		// Trim and return the leftover string
@@ -187,69 +202,87 @@ public class PT_XMLReader01 {
 
 
 
-public class PT_XMLHashList01 {
+public class PT_XMLHashList01
+{
 	public ArrayList list = new ArrayList();
 	
-	public PT_XMLHashtable this[int s] {
-		get {
-			return(list[s] as PT_XMLHashtable);
+	public PT_XMLHashtable01 this[int s]
+	{
+		get
+		{
+			return(list[s] as PT_XMLHashtable01);
 		}
-		set {
+		set
+		{
 			list[s] = value;
 		}
 	}
 	
-	public void Add(PT_XMLHashtable eH) {
+	public void Add(PT_XMLHashtable01 eH)
+	{
 		list.Add(eH);
 	}
 	
-	public int Count {
-		get {
+	public int Count
+	{
+		get
+		{
 			return(list.Count);
 		}
 	}
 	
-	public int length {
-		get {
+	public int length
+	{
+		get
+		{
 			return(list.Count);
 		}
 	}
 }
 
 
-public class PT_XMLHashtable01 {
+public class PT_XMLHashtable01
+{
 	
 	public List<string>				keys = new List<string>();
-	public List<PT_XMLHashList>		nodesList = new List<PT_XMLHashList>();
+	public List<PT_XMLHashList01>		nodesList = new List<PT_XMLHashList01>();
 	public List<string>				attKeys = new List<string>();
 	public List<string>				attributesList = new List<string>();
 	
-	public PT_XMLHashList Get(string key) {
+	public PT_XMLHashList01 Get(string key)
+	{
 		int ndx = Index(key);
 		if (ndx == -1) return(null);
 		return( nodesList[ndx] );
 	}
 	
-	public void Set(string key, PT_XMLHashList val) {
+	public void Set(string key, PT_XMLHashList01 val)
+	{
 		int ndx = Index(key);
-		if (ndx != -1) {
+		if (ndx != -1)
+		{
 			nodesList[ndx] = val;
-		} else {
+		}
+		else
+		{
 			keys.Add(key);
 			nodesList.Add(val);
 		}
 	}
 	
-	public int Index(string key) {
+	public int Index(string key)
+	{
 		return(keys.IndexOf(key));
 	}
 	
-	public int AttIndex(string attKey) {
+	public int AttIndex(string attKey)
+	{
 		return(attKeys.IndexOf(attKey));
 	}
 	
 	
-	public PT_XMLHashList this[string s] {
+	public PT_XMLHashList01 this[string s]
+	{
 		get {
 			return( Get(s) );
 		}
@@ -258,91 +291,120 @@ public class PT_XMLHashtable01 {
 		}
 	}
 	
-	public string att(string attKey) {
+	public string att(string attKey)
+	{
 		int ndx = AttIndex(attKey);
 		if (ndx == -1) return("");
 		return( attributesList[ndx] );
 	}
 	
-	public void attSet(string attKey, string val) {
+	public void attSet(string attKey, string val)
+	{
 		int ndx = AttIndex(attKey);
-		if (ndx == -1) {
+		if (ndx == -1)
+		{
 			attKeys.Add(attKey);
 			attributesList.Add(val);
-		} else {
+		}
+		else
+		{
 			attributesList[ndx] = val;
 		}
 	}
 	
-	public string text {
-		get {
+	public string text
+	{
+		get
+		{
 			int ndx = AttIndex("@");
 			if (ndx == -1) return( "" );
 			return( attributesList[ndx] );
 		}
-		set {
+		set
+		{
 			int ndx = AttIndex("@");
-			if (ndx == -1) {
+			if (ndx == -1)
+			{
 				attKeys.Add("@");
 				attributesList.Add(value);
-			} else {
+			}
+			else
+			{
 				attributesList[ndx] = value;
 			}
 		}
 	}
 	
 	
-	public string header {
-		get {
+	public string header
+	{
+		get
+		{
 			int ndx = AttIndex("@XML_Header");
 			if (ndx == -1) return( "" );
 			return( attributesList[ndx] );
 		}
-		set {
+		set
+		{
 			int ndx = AttIndex("@XML_Header");
-			if (ndx == -1) {
+			if (ndx == -1)
+			{
 				attKeys.Add("@XML_Header");
 				attributesList.Add(value);
-			} else {
+			}
+			else
+			{
 				attributesList[ndx] = value;
 			}
 		}
 	}
 	
 	
-	public string nodes {
-		get {
+	public string nodes
+	{
+		get
+		{
 			string s = "";
-			foreach (string key in keys) {
+			foreach (string key in keys)
+			{
 				s += key+"   ";
 			}
+			
 			return(s);
 		}
 	}
 	
-	public string attributes {
-		get {
+	public string attributes
+	{
+		get
+		{
 			string s = "";
-			foreach (string attKey in attKeys) {
+			foreach (string attKey in attKeys)
+			{
 				s += attKey+"   ";
 			}
+			
 			return(s);
 		}
 	}
 	
-	public bool ContainsKey(string key) {
+	public bool ContainsKey(string key)
+	{
 		return( Index(key) != -1 );
 	}
 	
-	public bool ContainsAtt(string attKey) {
+	public bool ContainsAtt(string attKey)
+	{
 		return( AttIndex(attKey) != -1 );
 	}
 	
-	public bool HasKey(string key) {
+	public bool HasKey(string key)
+	{
 		return( Index(key) != -1 );
 	}
 	
-	public bool HasAtt(string attKey) {
+	public bool HasAtt(string attKey)
+	{
 		return( AttIndex(attKey) != -1 );
 	}
 	

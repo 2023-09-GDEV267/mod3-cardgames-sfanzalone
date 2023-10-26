@@ -31,7 +31,7 @@ public class Prospector : MonoBehaviour
 	public CardProspector target;
 	public List<CardProspector> tableau;
 	public List<CardProspector> discardPile;
-	public FloatingScore fsRun;
+	public FloatingScore01 fsRun;
 
 	void Awake()
 	{
@@ -49,8 +49,8 @@ public class Prospector : MonoBehaviour
 			highScoreText = go.GetComponent<Text>();
         }
 
-		int highScore = ScoreManager.HIGH_SCORE;
-		string hScore = "High Score: " + Utils.AddCommasToNumber(highScore);
+		int highScore = ScoreManager01.HIGH_SCORE;
+		string hScore = "High Score: " + Utils01.AddCommasToNumber(highScore);
 		go.GetComponent<Text>().text = hScore;
 
 		//Set up the UI Texts that show at the end of the round
@@ -78,7 +78,7 @@ public class Prospector : MonoBehaviour
 
 	void Start()
 	{
-		Scoreboard.S.score = ScoreManager.SCORE;
+		Scoreboard01.S.score = ScoreManager01.SCORE;
 					
 		deck = GetComponent<Deck>();
 		deck.InitDeck (deckXML.text);
@@ -86,25 +86,25 @@ public class Prospector : MonoBehaviour
 		drawPile = ConvertListCardsToListCardProspectors(deck.cards);
 		LayoutGame();
 
-		/*Card c;
+		Card01 c;
 
 		for(int cNum = 0; cNum < deck.cards.Count; cNum++) 
 		{
 			c = deck.cards[cNum];
 			c.transform.localPosition = new Vector3((cNum % 13) * 3, cNum / 13 * 4, 0);
-		}**/
+		}
 
 		layout = GetComponent<Layout>(); //Get the Layout component
 		layout.ReadLayout(layoutXML.text); //Pass LayoutXML to it
 		drawPile = ConvertListCardsToListCardProspectors(deck.cards);
 	}
 
-	List<CardProspector> ConvertListCardsToListCardProspectors(List<Card> lCD)
+	List<CardProspector> ConvertListCardsToListCardProspectors(List<Card01> lCD)
     {
 		List<CardProspector> lCP = new List<CardProspector>();
 		CardProspector tCP;
 
-		foreach(Card tCD in lCD)
+		foreach(Card01 tCD in lCD)
         {
 			tCP = tCD as CardProspector;
 			lCP.Add(tCP);
@@ -294,7 +294,7 @@ public class Prospector : MonoBehaviour
 				MoveToTarget(Draw()); //Moves the next drawn card to the target
 				SetTableauFaces(); //Update tableau card face-ups
 				UpdateDrawPile(); //Restacks the drawPile
-				ScoreManager.EVENT(eScoreEvent.draw);
+				ScoreManager01.EVENT(eScoreEvent.draw);
 				FloatingScoreHandler(eScoreEvent.draw);
 
 				break;
@@ -323,7 +323,7 @@ public class Prospector : MonoBehaviour
 				//If we got here, then: Yay!  It's a valid card.
 				tableau.Remove(cd); //Remove it from the tableau List
 				MoveToTarget(cd); //Make it the target card
-				ScoreManager.EVENT(eScoreEvent.mine);
+				ScoreManager01.EVENT(eScoreEvent.mine);
 				FloatingScoreHandler(eScoreEvent.mine);
 
 				break;
@@ -369,7 +369,7 @@ public class Prospector : MonoBehaviour
 	//Called when the game is over.  Simple for now, but expandable
 	void GameOver(bool won)
 	{
-		int score = ScoreManager.SCORE;
+		int score = ScoreManager01.SCORE;
 		
 		if(fsRun != null)
 		{
@@ -383,7 +383,7 @@ public class Prospector : MonoBehaviour
 			ShowResultsUI(true);
 		
 			//print("Game Over.  You Won! :)"); //This is supposed to be commented out
-			ScoreManager.EVENT(eScoreEvent.gameWin);
+			ScoreManager01.EVENT(eScoreEvent.gameWin);
 			FloaringScoreHandler(eScoreEvent.gameWin);
 		}
 
@@ -391,7 +391,7 @@ public class Prospector : MonoBehaviour
 		{
 			gameOverText.text = "Game Over";
 
-			if(ScoreManager.HIGH_SCORE <= score)
+			if(ScoreManager01.HIGH_SCORE <= score)
 			{
 				string str = "You got the high score! \nHigh score: " + score;
 				roundResultText.text = str;
@@ -405,7 +405,7 @@ public class Prospector : MonoBehaviour
 			ShowResultsUI(true);
 
 			//print("Game Over.  You Lost. :("); //This is supposed to be commented out
-			ScoreManager.EVENT(eScoreEvent.gameLoss);
+			ScoreManager01.EVENT(eScoreEvent.gameLoss);
 			FloaringScoreHandler(eScoreEvent.gameLoss);
 		}
 
@@ -482,8 +482,8 @@ public class Prospector : MonoBehaviour
 
 			case eScoreEvent.mine: //Remove a mine card
 
-				//Create a FloatingScore for this score
-				FloatingScore fs;
+				//Create a FloatingScore01 for this score
+				FloatingScore01 fs;
 
 				//Move it from the mousePosition to fsPosRun
 				Vector2 p0 = Input.mousePosition;
@@ -493,7 +493,7 @@ public class Prospector : MonoBehaviour
 				fsPts.Add(p0);
 				fsPts.Add(fsPosMid);
 				fsPts.Add(fsPosRun);
-				fs = Scoreboard.S.CreateFloatingScore(ScoreManager.CHAIN, fsPts);
+				fs = Scoreboard01.S.CreateFloatingScore(ScoreManager01.CHAIN, fsPts);
 				fs.fontSizes = new List<float>(new float[] { 4, 50, 28 });
 
 				if(fsRun == null)

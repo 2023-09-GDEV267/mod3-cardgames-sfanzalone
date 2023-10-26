@@ -19,7 +19,7 @@ public class Scoreboard01 : MonoBehaviour
     private Transform canvasTrans;
 
     //The score property also sets the scoreString
-    /**public int score
+    public int score
     {
         get
         {
@@ -64,7 +64,7 @@ public class Scoreboard01 : MonoBehaviour
     }
 
     //When called by SendMessage, this adds the fs.score to this.score
-    public void FSCallback(FloatingScore fs)
+    public void FSCallback(FloatingScore01 fs)
     {
         score += fs.score;
     }
@@ -72,15 +72,15 @@ public class Scoreboard01 : MonoBehaviour
     //This will Instantiate a new FloatingScore GameObject and instantiate it.
     //It also returns a pointer to the FloatingScore created so that the 
     //calling function can do more with it (like set fontSizes, and so on).
-    public FloatingScore CreateFloatingScore(int amt, List<Vector2> pts)
+    public FloatingScore01 CreateFloatingScore(int amt, List<Vector2> pts)
     {
         GameObject go = Instantiate<GameObject>(prefabFloatingScore);
         go.transform.SetParent(canvasTrans);
-        FloatingScore fs = go.GetComponent<FloatingScore>();
+        FloatingScore01 fs = go.GetComponent<FloatingScore01>();
         fs.score = amt;
         fs.reportFinishTo = this.gameObject; //Set fs to call back to this
         fs.Init(pts);
 
         return (fs);
-    }*/
+    }
 }

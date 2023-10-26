@@ -27,7 +27,7 @@ public class Deck01 : MonoBehaviour
 
 	[Header("Set Dynamically")]
 
-	public PT_XMLReader					xmlr;
+	public PT_XMLReader01					xmlr;
 	// add from p 569
 	public List<string>					cardNames;
 	public List<Card01>					cards;
@@ -67,8 +67,8 @@ public class Deck01 : MonoBehaviour
 	// ReadDeck parses the XML file passed to it into Card01 Definitions
 	public void ReadDeck(string deckXMLText)
 	{
-		xmlr = new PT_XMLReader ();
-		/**xmlr.Parse (deckXMLText);
+		xmlr = new PT_XMLReader01 ();
+		xmlr.Parse (deckXMLText);
 
 		// print a test line
 		string s = "xml[0] decorator [0] ";
@@ -133,7 +133,7 @@ public class Deck01 : MonoBehaviour
 				cDef.face = xCardDefs[i].att ("face");
 			}
 			cardDefs.Add (cDef);
-		} // for i < xCardDefs.Count*/
+		} // for i < xCardDefs.Count
 	} // ReadDeck
 	
 	public CardDefinition GetCardDefinitionByRank(int rnk)
@@ -221,7 +221,7 @@ public class Deck01 : MonoBehaviour
 			
 			
 			//Add the pips
-			/**foreach(Decorator pip in card.def.pips) {
+			foreach(Decorator pip in card.def.pips) {
 				tGO = Instantiate(prefabSprite) as GameObject;
 				tGO.transform.parent = cgo.transform; 
 				tGO.transform.localPosition = pip.loc;
@@ -242,7 +242,8 @@ public class Deck01 : MonoBehaviour
 			}
 			
 			//Handle face cards
-			if (card.def.face != "")*/ {
+			if (card.def.face != "")
+			{
 				tGO = Instantiate(prefabSprite) as GameObject;
 				tSR = tGO.GetComponent<SpriteRenderer>();
 				
