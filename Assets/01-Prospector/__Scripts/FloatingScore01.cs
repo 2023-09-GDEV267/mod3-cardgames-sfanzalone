@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 
 //An enum to track the possible states of a FloatingScore
@@ -51,7 +52,7 @@ public class FloatingScore01 : MonoBehaviour
     public GameObject reportFinishTo = null;
 
     private RectTransform rectTrans;
-    //private Text txt;
+    private Text txt;
 
     //Set up the FloatingScore and movement
     //Note the use of parameter defaults for eTimes & eTimeD
@@ -60,7 +61,7 @@ public class FloatingScore01 : MonoBehaviour
         rectTrans = GetComponent<RectTransform>();
         rectTrans.anchoredPosition = Vector2.zero;
 
-        //txt = GetComponent<Text>();
+        txt = GetComponent<Text>();
 
         bezierPts = new List<Vector2>(ePts);
 
@@ -106,7 +107,7 @@ public class FloatingScore01 : MonoBehaviour
         float u = (Time.time - timeStart) / timeDuration;
 
         //Use Easing class from utils to curve the u value
-        //float uC = Easing.Ease(u, easingCurve);
+        float uC = Easing.Ease(u, easingCurve);
 
         if(u < 0)
         {
@@ -120,7 +121,7 @@ public class FloatingScore01 : MonoBehaviour
             if(u >= 1)
             {
                 //If u >= 1, we're done moving
-                //uC = 1;
+                uC = 1;
 
                 //Set uC = 1 so we don't overshoot
                 state = eFSState.post;

@@ -7,7 +7,7 @@ using System.Collections.Generic;
 
 public class Prospector : MonoBehaviour
 {
-	static public Prospector 	S;
+	static public Prospector S;
 
 	[Header("Set in Inspector")]
 	public TextAsset deckXML;
@@ -40,14 +40,14 @@ public class Prospector : MonoBehaviour
 	}
 
 	void SetUpUITexts()
-    {
+	{
 		//Set up the HighScore UI Text
 		GameObject go = GameObject.Find("Highscore");
 
-		if(go != null)
-        {
+		if (go != null)
+		{
 			highScoreText = go.GetComponent<Text>();
-        }
+		}
 
 		int highScore = ScoreManager01.HIGH_SCORE;
 		string hScore = "High Score: " + Utils01.AddCommasToNumber(highScore);
@@ -56,10 +56,10 @@ public class Prospector : MonoBehaviour
 		//Set up the UI Texts that show at the end of the round
 		go = GameObject.Find("GameOver");
 
-		if(go != null)
-        {
+		if (go != null)
+		{
 			gameOverText = go.GetComponent<Text>();
-        }
+		}
 
 		go = GameObject.Find("RoundResult");
 
@@ -82,9 +82,9 @@ public class Prospector : MonoBehaviour
 	void Start()
 	{
 		Scoreboard01.S.score = ScoreManager01.SCORE;
-					
+
 		deck = GetComponent<Deck01>(); //Get the Deck
-		deck.InitDeck (deckXML.text); //Pass DeckXML to it
+		deck.InitDeck(deckXML.text); //Pass DeckXML to it
 		Deck01.Shuffle(ref deck.cards); //This shuffles the deck
 		drawPile = ConvertListCardsToListCardProspectors(deck.cards);
 		LayoutGame();
@@ -104,39 +104,39 @@ public class Prospector : MonoBehaviour
 	}
 
 	List<CardProspector> ConvertListCardsToListCardProspectors(List<Card01> lCD)
-    {
+	{
 		List<CardProspector> lCP = new List<CardProspector>();
 		CardProspector tCP;
 
-		foreach(Card01 tCD in lCD)
-        {
+		foreach (Card01 tCD in lCD)
+		{
 			tCP = tCD as CardProspector;
 			lCP.Add(tCP);
-        }
+		}
 
 		return (lCP);
 	}
 
 	//The Draw function will pull a single card from the drawPile and return it
 	CardProspector Draw()
-    {
+	{
 		CardProspector cd = drawPile[0]; //Pull the 0'th CardProspector
 		drawPile.RemoveAt(0); //Then remove it from List<> drawPile
 
 		return (cd); //And return it
-    }
+	}
 
 	//LayoutGame() positions the initial tableau of cards, a.k.a. "the mine"
 	void LayoutGame()
-    {
+	{
 		//Create an empty GameObject to serve as an anchor for the tableau
-		if(layoutAnchor == null)
-        {
+		if (layoutAnchor == null)
+		{
 			GameObject tGO = new GameObject("_LayoutAnchor");
 			//^Create an empty GameObject named _LayoutAnchor in the Hierarchy
 			layoutAnchor = tGO.transform; //Grab its Transform
 			layoutAnchor.transform.position = layoutCenter; //Position it
-        }
+		}
 
 		CardProspector cp;
 
@@ -160,7 +160,7 @@ public class Prospector : MonoBehaviour
 			cp.state = eCardState.tableau;
 			cp.SetSortingLayerName(tSD.layerName); //Set the sorting layers
 
-			tableau.Add(cp); //Add this CardProspector to the List<> tableau		
+			tableau.Add(cp); //Add this CardProspector to the List<> tableau
 		}
 
 		//Set which cards are hiding others
@@ -179,10 +179,10 @@ public class Prospector : MonoBehaviour
 		//Set up the Draw pile
 		UpdateDrawPile();
 	}
-	
+
 	//Moves the current target to the discardPile
 	void MoveToDiscard(CardProspector cd)
-    {
+	{
 		//Set the state of the card to discard
 		cd.state = eCardState.discard;
 		discardPile.Add(cd); //Add it to the discardPile List<>
@@ -197,15 +197,15 @@ public class Prospector : MonoBehaviour
 		//Place it on top of the pile for depth sorting
 		cd.SetSortingLayerName(layout.discardPile.layerName);
 		cd.SetSortOrder(-100 + discardPile.Count);
-    }
+	}
 
-	 void MoveToTarget(CardProspector cd)
-     {
+	void MoveToTarget(CardProspector cd)
+	{
 		//If there is currently a target card, move it to discardPile
-		if(target != null)
-        {
+		if (target != null)
+		{
 			MoveToDiscard(target);
-        }
+		}
 
 		target = cd; //cd is the new target
 
@@ -221,15 +221,15 @@ public class Prospector : MonoBehaviour
 		//Set the depth sorting
 		cd.SetSortingLayerName(layout.discardPile.layerName);
 		cd.SetSortOrder(0);
-	 }
+	}
 
 	void UpdateDrawPile()
-    {
+	{
 		CardProspector cd;
 
 		//Go through all the cards of the drawPile
-		for(int i = 0; i < drawPile.Count; i++)
-        {
+		for (int i = 0; i < drawPile.Count; i++)
+		{
 			cd = drawPile[i];
 			cd.transform.parent = layoutAnchor;
 
@@ -245,33 +245,33 @@ public class Prospector : MonoBehaviour
 			//Set depth sorting 
 			cd.SetSortingLayerName(layout.drawPile.layerName);
 			cd.SetSortOrder(-10 * i);
-        }
+		}
 	}
 
 	//Convert from the layoutID int to the CardProspector with that ID
 	CardProspector FindCardByLayoutID(int layoutID)
 	{
-		foreach(CardProspector tCP in tableau)
+		foreach (CardProspector tCP in tableau)
 		{
 			//If the card has the same ID, return it
-			return(tCP);
+			return (tCP);
 		}
 
 		//If it's not, return null
-		return(null);
+		return (null);
 	}
 
 	//This turns cards in the Mine face-up or face-down
 	void SetTableauFaces()
 	{
-		foreach(CardProspector cd in tableau)
+		foreach (CardProspector cd in tableau)
 		{
 			bool faceUp = true; //Assume the card will be face-up
 
-			foreach(CardProspector cover in cd.hiddenBy)
+			foreach (CardProspector cover in cd.hiddenBy)
 			{
 				//If either of the covering cards are in the tableau
-				if(cover.state == eCardState.tableau)
+				if (cover.state == eCardState.tableau)
 				{
 					faceUp = false; //Then this card is face-down
 				}
@@ -281,7 +281,7 @@ public class Prospector : MonoBehaviour
 		}
 	}
 
-	
+
 
 	//CardClicked is called any time a card in the game is clicked
 	public void CardClicked(CardProspector cd)
@@ -292,7 +292,7 @@ public class Prospector : MonoBehaviour
 			case eCardState.target:
 				//Clicking the target card does nothing
 				break;
-			
+
 			case eCardState.drawpile:
 				//Clicking any card in the drawPile will draw the next card
 				MoveToDiscard(target); //Moves the target to the discardPile
@@ -314,7 +314,7 @@ public class Prospector : MonoBehaviour
 					validMatch = false;
 				}
 
-				if(!AdjacentRank(cd, target))
+				if (!AdjacentRank(cd, target))
 				{
 					//If it's not an adjacent rank, it's not valid
 					validMatch = false;
@@ -342,7 +342,7 @@ public class Prospector : MonoBehaviour
 	void CheckForGameOver()
 	{
 		//If tableau is empty, the game is over
-		if(tableau.Count == 0)
+		if (tableau.Count == 0)
 		{
 			//Call GameOver() with a win
 			GameOver(true);
@@ -351,15 +351,15 @@ public class Prospector : MonoBehaviour
 		}
 
 		//If there are still cards in the draw pile, the game's not over
-		if(drawPile.Count > 0)
+		if (drawPile.Count > 0)
 		{
 			return;
 		}
 
 		//Check for remaining valid plays
-		foreach(CardProspector cd in tableau)
+		foreach (CardProspector cd in tableau)
 		{
-			if(AdjacentRank(cd, target))
+			if (AdjacentRank(cd, target))
 			{
 				//If there's a valid play, the game's not over
 				return;
@@ -367,7 +367,7 @@ public class Prospector : MonoBehaviour
 
 			//Since there's no valid plays, the game is over
 			//Call GameOver with a loss
-			CheckForGameOver(false);
+			GameOver(false);
 		}
 	}
 
@@ -375,18 +375,18 @@ public class Prospector : MonoBehaviour
 	void GameOver(bool won)
 	{
 		int score = ScoreManager01.SCORE;
-		
-		if(fsRun != null)
+
+		if (fsRun != null)
 		{
 			score += fsRun.score;
 		}
-		
+
 		if (won)
 		{
 			gameOverText.text = "Round Over";
 			roundResultText.text = "You won this round! \nRound Score: " + score;
 			ShowResultsUI(true);
-		
+
 			//print("Game Over.  You Won! :)"); //This is supposed to be commented out
 			ScoreManager01.EVENT(eScoreEvent.gameWin);
 			FloaringScoreHandler(eScoreEvent.gameWin);
@@ -396,7 +396,7 @@ public class Prospector : MonoBehaviour
 		{
 			gameOverText.text = "Game Over";
 
-			if(ScoreManager01.HIGH_SCORE <= score)
+			if (ScoreManager01.HIGH_SCORE <= score)
 			{
 				string str = "You got the high score! \nHigh score: " + score;
 				roundResultText.text = str;
@@ -428,33 +428,34 @@ public class Prospector : MonoBehaviour
 	public bool AdjacentRank(CardProspector c0, CardProspector c1)
 	{
 		//If either card is face-down, it's not adjacent.
-		if(!c0.faceUp || !c1.faceUp)
+		if (!c0.faceUp || !c1.faceUp)
 		{
-			return(false);
+			return (false);
 		}
 
 		//If they're 1 apart, they're adjacent
-		if(Mathf.Abs(c0.rank - c1.rank) == 1)
+		if (Mathf.Abs(c0.rank - c1.rank) == 1)
 		{
-			return(true);
+			return (true);
 		}
 
 		//If one is Ace and the other is King, they're adjacent
-		if(c0.rank == 1 && c1.rank == 13)
+		if (c0.rank == 1 && c1.rank == 13)
 		{
-			return(true);
+			return (true);
 		}
 
 		//If one is Ace and the other is King, they're adjacent
 		if (c0.rank == 13 && c1.rank == 1)
 		{
-			return(true);
+			return (true);
 		}
 
 		//Otherwise, return false
-		return(false);
+		return (false);
 	}
 
+	//Handle FloatingScore movement
 	void FloatingScoreHandler(eScoreEvent evt)
 	{
 		List<Vector2> fsPts;
@@ -467,14 +468,14 @@ public class Prospector : MonoBehaviour
 			case eScoreEvent.gameLoss: //Lost the round
 
 				//Add fsRun to the Scoreboard score
-				if(fsRun != null)
+				if (fsRun != null)
 				{
 					//Create points for the Bezier curve
 					fsPts = new List<Vector2>();
 					fsPts.Add(fsPosRun);
 					fsPts.Add(fsPosMid2);
 					fsPts.Add(fsPosEnd);
-					fsRun.reportFinishTo = Scoreboard.S.gameObject;
+					fsRun.reportFinishTo = Scoreboard01.S.gameObject;
 
 					fsRun.Init(fsPts, 0, 1);
 
@@ -501,7 +502,7 @@ public class Prospector : MonoBehaviour
 				fs = Scoreboard01.S.CreateFloatingScore(ScoreManager01.CHAIN, fsPts);
 				fs.fontSizes = new List<float>(new float[] { 4, 50, 28 });
 
-				if(fsRun == null)
+				if (fsRun == null)
 				{
 					fsRun = fs;
 					fsRun.reportFinishTo = null;
@@ -515,3 +516,4 @@ public class Prospector : MonoBehaviour
 				break;
 		}
 	}
+}

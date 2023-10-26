@@ -240,3 +240,43 @@ Received Import Request.
 Start importing Assets/01-Prospector/__Scripts/Utils01.cs using Guid(c78e537984e8e4215a5293992c3edd35) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'f6e35a043749f64b907b62e26c05b6e2') in 0.000960 seconds
 Number of updated asset objects reloaded before import = 0
 Number of asset objects unloaded after import = 0
+========================================================================
+Received Import Request.
+  Time since last request: 389.954357 seconds.
+  path: Assets/01-Prospector/__Scripts/Deck01.cs
+  artifactKey: Guid(2b69c28581428da469438d7d5901b8ad) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/01-Prospector/__Scripts/Deck01.cs using Guid(2b69c28581428da469438d7d5901b8ad) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '94b7532fa6b6625a5d0e168cc20ad1be') in 0.000614 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 0
+========================================================================
+Received Import Request.
+  Time since last request: 854.516208 seconds.
+  path: Assets/01-Prospector/__Scripts/Layout01.cs
+  artifactKey: Guid(6fba37ab1df3e394db8e44143259eeab) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/01-Prospector/__Scripts/Layout01.cs using Guid(6fba37ab1df3e394db8e44143259eeab) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '0758835c7f034b9d0f6b73980f20ccf7') in 0.000885 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 0
+========================================================================
+Received Import Request.
+  Time since last request: 936.908263 seconds.
+  path: Assets/01-Prospector/__Scripts/Layout01.cs
+  artifactKey: Guid(6fba37ab1df3e394db8e44143259eeab) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/01-Prospector/__Scripts/Layout01.cs using Guid(6fba37ab1df3e394db8e44143259eeab) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e338be9325d0d6f6475f6dced722a7e8') in 0.001018 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 0
+========================================================================
+Received Import Request.
+  Time since last request: 1862.612300 seconds.
+  path: Assets/01-Prospector/__Scripts/Layout01.cs
+  artifactKey: Guid(6fba37ab1df3e394db8e44143259eeab) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/01-Prospector/__Scripts/Layout01.cs using Guid(6fba37ab1df3e394db8e44143259eeab) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '95f543eb07cbaa82763e9eb717f3acc8') in 0.000771 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 0
+========================================================================
+Received Import Request.
+  Time since last request: 1539.029894 seconds.
+  path: Assets/01-Prospector/__Scripts/Card01.cs
+  artifactKey: Guid(100a12af089e19845beeba3dc7d93c78) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/01-Prospector/__Scripts/Card01.cs using Guid(100a12af089e19845beeba3dc7d93c78) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'f6fbebf795e84b5bb3dd781100325e2e') in 0.000877 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 0

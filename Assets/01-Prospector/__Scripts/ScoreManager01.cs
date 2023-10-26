@@ -30,7 +30,7 @@ public class ScoreManager01 : MonoBehaviour
     {
         if(S == null)
         {
-            //S = this; //Set the private singleton
+            S = this; //Set the private singleton
         }
 
         else
@@ -74,34 +74,30 @@ public class ScoreManager01 : MonoBehaviour
             case eScoreEvent.gameWin: //Won the round
 
             case eScoreEvent.gameLoss: //Lost the round
-            {
                     chain = 0; //Resets the score chain
                     score += scoreRun; //Add scoreRun to total score
                     scoreRun = 0; //Reset scoreRun
-            }
-                break;
+
+                    break;
 
             case eScoreEvent.mine: //Remove a mine card
-            {
                     chain++; //Increase the score chain
                     scoreRun += chain; //Add score for this card to run
-            }
-                break;
+
+                    break;
         }
 
         switch (evt)
         {
             case eScoreEvent.gameWin:
-            {
-                    //If it's a win, add the score to the next round
-                    //Static fields AREN'T reset by SceneManager.LoadScene()
-                    SCORE_FROM_PREV_ROUND = score;
-                    print("You won this round!  Round Score: " + score);
-            }
+                //If it's a win, add the score to the next round
+                //Static fields AREN'T reset by SceneManager.LoadScene()
+                SCORE_FROM_PREV_ROUND = score;
+                print("You won this round!  Round Score: " + score);
+
                 break;
 
             case eScoreEvent.gameLoss:
-             {
                     //If it's a loss, check against the high score
                     if(HIGH_SCORE <= score)
                     {
@@ -116,12 +112,10 @@ public class ScoreManager01 : MonoBehaviour
                     }
 
                     break;
-             }
 
             default:
-            {
-                    print("score: " + score + " scoreRun: " + scoreRun + " chain: " + chain);
-            }
+                print("score: " + score + " scoreRun: " + scoreRun + " chain: " + chain);
+
                 break;
         }
     }
