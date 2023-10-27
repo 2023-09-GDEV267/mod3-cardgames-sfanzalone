@@ -27,7 +27,7 @@ public class Deck : MonoBehaviour
 
 	[Header("Set Dynamically")]
 
-	public PT_XMLReader					xmlr;
+	public PT_XMLReader02					xmlr;
 	// add from p 569
 	public List<string>					cardNames;
 	public List<Card02>					cards;
@@ -67,7 +67,7 @@ public class Deck : MonoBehaviour
 	// ReadDeck parses the XML file passed to it into Card Definitions
 	public void ReadDeck(string deckXMLText)
 	{
-		xmlr = new PT_XMLReader ();
+		xmlr = new PT_XMLReader02 ();
 		xmlr.Parse (deckXMLText);
 
 		// print a test line
