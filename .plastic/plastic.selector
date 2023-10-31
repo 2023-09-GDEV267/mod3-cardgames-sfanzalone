@@ -1,0 +1,4 @@
+repository "mod3-cardgames-sfanzalone@sanzalone@cloud"
+  path "/"
+    br "/main"
+    co "/main"

@@ -33,14 +33,14 @@ public class PT_XMLReader01
 	
 	void Awake()
 	{
-		inputTA = Resources.Load("WellFormedSample") as TextAsset;	
+		/**inputTA = Resources.Load("WellFormedSample") as TextAsset;	
 		input = inputTA.text;
 		print(input);
 		output = new XMLHashtable();
 		Parse(input, output);
 		
 		// TODO: Make something which will trace a Hashtable or output it as XML
-		print(output["videocollection"][0]["video"][1]["title"][0].text);
+		print(output["videocollection"][0]["video"][1]["title"][0].text);*/
 	}
 	
 	
@@ -77,7 +77,7 @@ public class PT_XMLReader01
 			{
 				// In that case, we just need to add an @ key/value to the hashtable
 				eS = eS.Trim(); // I think this is redundant
-				eH["@"] = eS;
+				//eH["@"] = eS;
 				eH.text = eS;
 			}
 			
@@ -89,7 +89,7 @@ public class PT_XMLReader01
 			// search for the closing tag of this header
 			int ndx2 = eS.IndexOf("?>");
 			string header = eS.Substring(ndx, ndx2-ndx+2);
-			eH["@XML_Header"] = header;
+			//eH["@XML_Header"] = header;
 			eH.header = header;
 			return(eS.Substring(ndx2+2));
 		}
@@ -100,7 +100,7 @@ public class PT_XMLReader01
 			int ndx2 = eS.IndexOf("-->");
 			string comment = eS.Substring(ndx, ndx2-ndx+3);
 			if (SHOW_COMMENTS) Debug.Log("XMl Comment: "+comment);
-			eH["@XML_Header"] = header;
+			//eH["@XML_Header"] = header;
 			return(eS.Substring(ndx2+3));
 		}
 		
@@ -171,7 +171,7 @@ public class PT_XMLReader01
 			}
 			
 			val = val.Trim('\"');
-			thisHash[att] = val; // All attributes have to be unique, so this should be okay.
+			//thisHash[att] = val; // All attributes have to be unique, so this should be okay.
 			thisHash.attSet(att, val);
 		}
 		

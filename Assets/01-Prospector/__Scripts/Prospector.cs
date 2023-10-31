@@ -389,7 +389,7 @@ public class Prospector : MonoBehaviour
 
 			//print("Game Over.  You Won! :)"); //This is supposed to be commented out
 			ScoreManager01.EVENT(eScoreEvent.gameWin);
-			FloaringScoreHandler(eScoreEvent.gameWin);
+			//FloaringScoreHandler(eScoreEvent.gameWin);
 		}
 
 		else
@@ -411,7 +411,7 @@ public class Prospector : MonoBehaviour
 
 			//print("Game Over.  You Lost. :("); //This is supposed to be commented out
 			ScoreManager01.EVENT(eScoreEvent.gameLoss);
-			FloaringScoreHandler(eScoreEvent.gameLoss);
+			//FloaringScoreHandler(eScoreEvent.gameLoss);
 		}
 
 		//Reload the scene, resetting the game

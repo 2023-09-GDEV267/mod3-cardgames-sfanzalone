@@ -22,7 +22,7 @@ public class Card01 : MonoBehaviour
 	// Use this for initialization
 	void Start ()
 	{
-		SetOrder(0); //Ensures that the card starts properly depth sorted
+		//SetOrder(0); //Ensures that the card starts properly depth sorted
 	}
 
 	//If spriteRenderers isn't yet defined, this function defines it

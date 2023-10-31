@@ -153,7 +153,7 @@ public class FloatingScore02 : MonoBehaviour
         }
 
         //Use Bezier curve to move this to the right point
-        Vector2 pos = Utils.Bezier(uC, bezierPts);
+        Vector2 pos = Utils02.Bezier(uC, bezierPts);
 
         //RectTransform anchors can be used to the position UI objects relative
         //to total size of the screen
@@ -163,7 +163,7 @@ public class FloatingScore02 : MonoBehaviour
         {
             //If fontSizes has values in it
             //...then adjust the fontSize of this GUIText
-            int size = Mathf.RoundToInt(Utils.Bezier(uC, fontSizes));
+            int size = Mathf.RoundToInt(Utils02.Bezier(uC, fontSizes));
             //GetComponent<Text>().fontSizes = size;
         }
     }
