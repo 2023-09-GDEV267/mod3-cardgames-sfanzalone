@@ -110,23 +110,26 @@ public class Card02 : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
 	{
-		for(int i = 0; i < numOfObjects; i++)
+        if (Input.GetKeyDown(KeyCode.Space))
         {
-			float angle = i * Mathf.PI * 2 / numOfObjects;
-			float x = Mathf.Cos(angle) * radius;
-			float y = Mathf.Tan(angle) * radius;
-			Vector3 pos = transform.position + new Vector3(x, y, 0);
-			float angleDegrees = -angle * Mathf.Rad2Deg;
-			Quaternion rot = Quaternion.Euler(0, 0, angleDegrees);
-			Instantiate(PrefabCard, pos, rot);
-		}
+			for(int i = 0; i < numOfObjects; i++)
+			{
+				float angle = i * Mathf.PI * 2 / numOfObjects;
+				float x = Mathf.Cos(angle) * radius;
+				float y = Mathf.Tan(angle) * radius;
+				Vector3 pos = transform.position + new Vector3(x, y, 0);
+				float angleDegrees = -angle * Mathf.Rad2Deg;
+				Quaternion rot = Quaternion.Euler(0, 0, angleDegrees);
+				Instantiate(PrefabCard, pos, rot);
+			}
+        }
 	}
 } // class Card
 
 [System.Serializable]
 public class Decorator02
 {
-	public string	type;			// For card pips, tyhpe = "pip"
+	public string	type;			// For card pips, type = "pip"
 	public Vector3	loc;			// location of sprite on the card
 	public bool		flip = false;	//whether to flip vertically
 	public float 	scale = 1.0f;
