@@ -32,6 +32,15 @@ public class Card02 : MonoBehaviour
 
 	float radius = 5f;
 
+	//List of the SpriteRenderer Components of this GameObject and its children
+	//public SpriteRenderer[] spriteRenderers; //This must stay commented
+
+	// Use this for initialization
+	void Start()
+	{
+		//SetOrder(0); //Ensures that the card starts properly depth sorted
+	}
+
 	//If spriteRenderers isn't yet defined, this function defines it
 	public void PopulateSpriteRenderers()
     {

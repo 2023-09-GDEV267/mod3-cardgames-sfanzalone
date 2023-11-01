@@ -81,10 +81,13 @@ public class Deck : MonoBehaviour
 		//Read decorators for all cards
 		// these are the small numbers/suits in the corners
 		decorators = new List<Decorator>();
+
 		// grab all decorators from the XML file
 		PT_XMLHashList xDecos = xmlr.xml["xml"][0]["decorator"];
 		Decorator deco;
-		for (int i=0; i<xDecos.Count; i++) {
+		
+		for (int i=0; i<xDecos.Count; i++)
+		{
 			// for each decorator in the XML, copy attributes and set up location and flip if needed
 			deco = new Decorator();
 			deco.type = xDecos[i].att ("type");
@@ -101,7 +104,8 @@ public class Deck : MonoBehaviour
 		cardDefs = new List<CardDefinition>();
 		PT_XMLHashList xCardDefs = xmlr.xml["xml"][0]["card"];
 		
-		for (int i=0; i<xCardDefs.Count; i++) {
+		for (int i=0; i<xCardDefs.Count; i++)
+		{
 			// for each carddef in the XML, copy attributes and set up in cDef
 			CardDefinition cDef = new CardDefinition();
 			cDef.rank = int.Parse(xCardDefs[i].att("rank"));

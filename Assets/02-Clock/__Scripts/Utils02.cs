@@ -70,20 +70,26 @@ public class Utils02 : MonoBehaviour
 	}
 	
 	// Make a static read-only public property camBounds
-	static public Bounds camBounds {
-		get {
+	static public Bounds camBounds
+	{
+		get
+		{
 			// if _camBounds hasn't been set yet
-			if (_camBounds.size == Vector3.zero) {
+			if (_camBounds.size == Vector3.zero)
+			{
 				// SetCameraBounds using the default Camera
 				SetCameraBounds();
 			}
+			
 			return( _camBounds );
 		}
 	}
+	
 	// This is the private static field that camBounds uses
 	static private Bounds _camBounds;
 	
-	public static void SetCameraBounds(Camera cam=null) {
+	public static void SetCameraBounds(Camera cam=null)
+	{
 		// If no Camera was passed in, use the main Camera
 		if (cam == null) cam = Camera.main;
 		// This makes a couple important assumptions about the camera!:
@@ -110,10 +116,9 @@ public class Utils02 : MonoBehaviour
 		_camBounds.Encapsulate( boundBRF );
 	}
 	
-	
-	
 	// Test to see whether Bounds are on screen.
-	public static Vector3 ScreenBoundsCheck(Bounds bnd, BoundsTest test = BoundsTest.center) {
+	public static Vector3 ScreenBoundsCheck(Bounds bnd, BoundsTest test = BoundsTest.center)
+	{
 		// Call the more generic BoundsInBoundsCheck with camBounds as bigB
 		return( BoundsInBoundsCheck( camBounds, bnd, test ) );
 	}
@@ -126,81 +131,132 @@ public class Utils02 : MonoBehaviour
 		// Initialize the offset at [0,0,0]
 		Vector3 off = Vector3.zero;
 		
-		switch (test) {			
-// The center test determines what off (offset) would have to be applied to lilB to move its center back inside bigB
-		case BoundsTest.center:
-			// if the center is contained, return Vector3.zero
-			if ( bigB.Contains( pos ) ) {
-				return( Vector3.zero );
-			}
-			// if not contained, find the offset
-			if (pos.x > bigB.max.x) {
-				off.x = pos.x - bigB.max.x;
-			} else  if (pos.x < bigB.min.x) {
-				off.x = pos.x - bigB.min.x;
-			}
-			if (pos.y > bigB.max.y) {
-				off.y = pos.y - bigB.max.y;
-			} else  if (pos.y < bigB.min.y) {
-				off.y = pos.y - bigB.min.y;
-			}
-			if (pos.z > bigB.max.z) {
-				off.z = pos.z - bigB.max.z;
-			} else  if (pos.z < bigB.min.z) {
-				off.z = pos.z - bigB.min.z;
-			}
-			return( off );
+		switch (test)
+		{			
+			// The center test determines what off (offset) would have to be applied to lilB to move its center back inside bigB
+			case BoundsTest.center:
+				// if the center is contained, return Vector3.zero
+				if ( bigB.Contains( pos ) )
+				{
+					return( Vector3.zero );
+				}
+
+				// if not contained, find the offset
+				if (pos.x > bigB.max.x)
+				{
+					off.x = pos.x - bigB.max.x;
+				}
+				
+				else  if (pos.x < bigB.min.x)
+				{
+					off.x = pos.x - bigB.min.x;
+				}
 			
-// The onScreen test determines what off would have to be applied to keep all of lilB inside bigB
-		case BoundsTest.onScreen:
-			// find whether bigB contains all of lilB
-			if ( bigB.Contains( lilB.min ) && bigB.Contains( lilB.max ) ) {
-				return( Vector3.zero );
-			}
-			// if not, find the offset
-			if (lilB.max.x > bigB.max.x) {
-				off.x = lilB.max.x - bigB.max.x;
-			} else  if (lilB.min.x < bigB.min.x) {
-				off.x = lilB.min.x - bigB.min.x;
-			}
-			if (lilB.max.y > bigB.max.y) {
-				off.y = lilB.max.y - bigB.max.y;
-			} else  if (lilB.min.y < bigB.min.y) {
-				off.y = lilB.min.y - bigB.min.y;
-			}
-			if (lilB.max.z > bigB.max.z) {
-				off.z = lilB.max.z - bigB.max.z;
-			} else  if (lilB.min.z < bigB.min.z) {
-				off.z = lilB.min.z - bigB.min.z;
-			}
-			return( off );
+				if (pos.y > bigB.max.y)
+				{
+					off.y = pos.y - bigB.max.y;
+				}
+				
+				else  if (pos.y < bigB.min.y)
+				{
+					off.y = pos.y - bigB.min.y;
+				}
 			
-// The offScreen test determines what off would need to be applied to move any tiny part of lilB inside of bigB
-		case BoundsTest.offScreen:
-			// find whether bigB contains any of lilB
-			bool cMin = bigB.Contains( lilB.min );
-			bool cMax = bigB.Contains( lilB.max );
-			if ( cMin || cMax ) {
-				return( Vector3.zero );
-			}
-			// if not, find the offset
-			if (lilB.min.x > bigB.max.x) {
-				off.x = lilB.min.x - bigB.max.x;
-			} else  if (lilB.max.x < bigB.min.x) {
-				off.x = lilB.max.x - bigB.min.x;
-			}
-			if (lilB.min.y > bigB.max.y) {
-				off.y = lilB.min.y - bigB.max.y;
-			} else  if (lilB.max.y < bigB.min.y) {
-				off.y = lilB.max.y - bigB.min.y;
-			}
-			if (lilB.min.z > bigB.max.z) {
-				off.z = lilB.min.z - bigB.max.z;
-			} else  if (lilB.max.z < bigB.min.z) {
-				off.z = lilB.max.z - bigB.min.z;
-			}
-			return( off );
+				if (pos.z > bigB.max.z)
+				{
+					off.z = pos.z - bigB.max.z;
+				}
+				
+				else  if (pos.z < bigB.min.z)
+				{
+					off.z = pos.z - bigB.min.z;
+				}
 			
+				return( off );
+			
+			// The onScreen test determines what off would have to be applied to keep all of lilB inside bigB
+			case BoundsTest.onScreen:
+				// find whether bigB contains all of lilB
+				if ( bigB.Contains( lilB.min ) && bigB.Contains( lilB.max ) )
+				{
+					return( Vector3.zero );
+				}
+			
+				// if not, find the offset
+				if (lilB.max.x > bigB.max.x)
+				{
+					off.x = lilB.max.x - bigB.max.x;
+				}
+				else  if (lilB.min.x < bigB.min.x)
+				{
+					off.x = lilB.min.x - bigB.min.x;
+				}
+			
+				if (lilB.max.y > bigB.max.y)
+				{
+					off.y = lilB.max.y - bigB.max.y;
+				}
+				
+				else  if (lilB.min.y < bigB.min.y)
+				{
+					off.y = lilB.min.y - bigB.min.y;
+				}
+			
+				if (lilB.max.z > bigB.max.z)
+				{
+					off.z = lilB.max.z - bigB.max.z;
+				}
+				
+				else  if (lilB.min.z < bigB.min.z)
+				{
+					off.z = lilB.min.z - bigB.min.z;
+				}
+			
+				return( off );
+			
+			// The offScreen test determines what off would need to be applied to move any tiny part of lilB inside of bigB
+			case BoundsTest.offScreen:
+				// find whether bigB contains any of lilB
+				bool cMin = bigB.Contains( lilB.min );
+				bool cMax = bigB.Contains( lilB.max );
+			
+				if ( cMin || cMax )
+				{
+					return( Vector3.zero );
+				}
+			
+				// if not, find the offset
+				if (lilB.min.x > bigB.max.x)
+				{
+					off.x = lilB.min.x - bigB.max.x;
+				}
+				
+				else  if (lilB.max.x < bigB.min.x)
+				{
+					off.x = lilB.max.x - bigB.min.x;
+				}
+			
+				if (lilB.min.y > bigB.max.y)
+				{
+					off.y = lilB.min.y - bigB.max.y;
+				}
+				
+				else  if (lilB.max.y < bigB.min.y)
+				{
+					off.y = lilB.max.y - bigB.min.y;
+				}
+			
+				if (lilB.min.z > bigB.max.z)
+				{
+					off.z = lilB.min.z - bigB.max.z;
+				}
+				
+				else  if (lilB.max.z < bigB.min.z)
+				{
+					off.z = lilB.max.z - bigB.min.z;
+				}
+			
+				return( off );
 		}
 		
 		return( Vector3.zero );
@@ -211,23 +267,30 @@ public class Utils02 : MonoBehaviour
 	
 	// This function will iteratively climb up the transform.parent tree
 	//   until it either finds a parent with a tag != "Untagged" or no parent
-	public static GameObject FindTaggedParent(GameObject go) {
+	public static GameObject FindTaggedParent(GameObject go)
+	{
 		// If this gameObject has a tag
-		if (go.tag != "Untagged") {
+		if (go.tag != "Untagged")
+		{
 			// then return this gameObject
 			return(go);
 		}
+		
 		// If there is no parent of this Transform
-		if (go.transform.parent == null) {
+		if (go.transform.parent == null)
+		{
 			// We've reached the end of the line with no interesting tag
 			// So return null
 			return( null );
 		}
+		
 		// Otherwise, recursively climb up the tree
 		return( FindTaggedParent( go.transform.parent.gameObject ) );
 	}
+	
 	// This version of the function handles things if a Transform is passed in
-	public static GameObject FindTaggedParent(Transform t) {
+	public static GameObject FindTaggedParent(Transform t)
+	{
 		return( FindTaggedParent( t.gameObject ) );
 	}
 	
@@ -454,7 +517,7 @@ public class Easing
 			u2 = EaseP( u2, cache[curve] );
 		}
 		return( u2 );
-		/*	
+		/**	
 			
 			// It's possible to pass in several comma-separated curves
 			string[] curvesA = curves.Split(',');
@@ -478,39 +541,59 @@ public class Easing
 		*/
 	}
 	
-	static private void EaseParse( string curveIn ) {
+	static private void EaseParse( string curveIn )
+	{
 		EasingCachedCurve ecc = new EasingCachedCurve();
 		// It's possible to pass in several comma-separated curves
 		string[] curves = curveIn.Split(',');
-		foreach (string curve in curves) {
+		
+		foreach (string curve in curves)
+		{
 			if (curve == "") continue;
+			
 			// Split each curve on | to find curve and mod
 			string[] curveA = curve.Split('|');
 			ecc.curves.Add(curveA[0]);
-			if (curveA.Length == 1 || curveA[1] == "") {
+			
+			if (curveA.Length == 1 || curveA[1] == "")
+			{
 				ecc.mods.Add(float.NaN);
-			} else {
+			}
+			
+			else
+			{
 				float parseRes;
-				if ( float.TryParse(curveA[1], out parseRes) ) {
+				
+				if ( float.TryParse(curveA[1], out parseRes) )
+				{
 					ecc.mods.Add( parseRes );
-				} else {
+				}
+				
+				else
+				{
 					ecc.mods.Add( float.NaN );
 				}
 			}	
 		}
+		
 		cache.Add(curveIn, ecc);
 	}
 	
 	
-	static public float Ease( float u, string curve, float mod ) {
+	static public float Ease( float u, string curve, float mod )
+	{
 		return( EaseP( u, curve, mod ) );
 	}
 	
-	static private float EaseP( float u, EasingCachedCurve ec ) {
+	static private float EaseP( float u, EasingCachedCurve ec )
+	{
 		float u2 = u;
-		for (int i=0; i<ec.curves.Count; i++) {
+		
+		for (int i=0; i<ec.curves.Count; i++)
+		{
 			u2 = EaseP( u2, ec.curves[i], ec.mods[i] );
 		}
+		
 		return( u2 );
 	}
 	
