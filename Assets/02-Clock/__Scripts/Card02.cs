@@ -19,11 +19,18 @@ public class Card02 : MonoBehaviour
 	//List of the SpriteRenderer Components of this GameObject and its children
 	public SpriteRenderer[] spriteRenderers;
 
-	// Use this for initialization
-	void Start ()
-	{
-		//SetOrder(0); //Ensures that the card starts properly depth sorted
-	}
+	[SerializeField]
+
+	GameObject PrefabCard;
+	GameObject PrefabSprite;
+
+	[SerializeField]
+
+	int numOfObjects = 12;
+
+	[SerializeField]
+
+	float radius = 5f;
 
 	//If spriteRenderers isn't yet defined, this function defines it
 	public void PopulateSpriteRenderers()
@@ -103,7 +110,16 @@ public class Card02 : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
 	{
-	
+		for(int i = 0; i < numOfObjects; i++)
+        {
+			float angle = i * Mathf.PI * 2 / numOfObjects;
+			float x = Mathf.Cos(angle) * radius;
+			float y = Mathf.Tan(angle) * radius;
+			Vector3 pos = transform.position + new Vector3(x, y, 0);
+			float angleDegrees = -angle * Mathf.Rad2Deg;
+			Quaternion rot = Quaternion.Euler(0, 0, angleDegrees);
+			Instantiate(PrefabCard, pos, rot);
+		}
 	}
 } // class Card
 
