@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class Deck : MonoBehaviour
+public class Deck02 : MonoBehaviour
 {
 
 [Header("Set in Inspector")]
