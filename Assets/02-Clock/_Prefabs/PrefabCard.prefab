@@ -131,3 +131,6 @@ MonoBehaviour:
     rank: 0
     pips: []
   spriteRenderers: []
+  PrefabCard: {fileID: 0}
+  numOfObjects: 12
+  radius: 5
