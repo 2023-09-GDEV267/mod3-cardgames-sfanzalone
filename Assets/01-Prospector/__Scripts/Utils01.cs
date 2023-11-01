@@ -104,6 +104,7 @@ public class Utils01 : MonoBehaviour
 		// Find the center of the Bounds
 		Vector3 center = (boundTLN + boundBRF) / 2f;
 		_camBounds = new Bounds(center, Vector3.zero);
+		
 		// Expand _camBounds to encapsulate the extents.
 		_camBounds.Encapsulate(boundTLN);
 		_camBounds.Encapsulate(boundBRF);
@@ -136,31 +137,38 @@ public class Utils01 : MonoBehaviour
 				{
 					return (Vector3.zero);
 				}
+				
 				// if not contained, find the offset
 				if (pos.x > bigB.max.x)
 				{
 					off.x = pos.x - bigB.max.x;
 				}
+				
 				else if (pos.x < bigB.min.x)
 				{
 					off.x = pos.x - bigB.min.x;
 				}
+				
 				if (pos.y > bigB.max.y)
 				{
 					off.y = pos.y - bigB.max.y;
 				}
+				
 				else if (pos.y < bigB.min.y)
 				{
 					off.y = pos.y - bigB.min.y;
 				}
+				
 				if (pos.z > bigB.max.z)
 				{
 					off.z = pos.z - bigB.max.z;
 				}
+				
 				else if (pos.z < bigB.min.z)
 				{
 					off.z = pos.z - bigB.min.z;
 				}
+				
 				return (off);
 
 			// The onScreen test determines what off would have to be applied to keep all of lilB inside bigB
@@ -170,31 +178,38 @@ public class Utils01 : MonoBehaviour
 				{
 					return (Vector3.zero);
 				}
+				
 				// if not, find the offset
 				if (lilB.max.x > bigB.max.x)
 				{
 					off.x = lilB.max.x - bigB.max.x;
 				}
+				
 				else if (lilB.min.x < bigB.min.x)
 				{
 					off.x = lilB.min.x - bigB.min.x;
 				}
+				
 				if (lilB.max.y > bigB.max.y)
 				{
 					off.y = lilB.max.y - bigB.max.y;
 				}
+				
 				else if (lilB.min.y < bigB.min.y)
 				{
 					off.y = lilB.min.y - bigB.min.y;
 				}
+				
 				if (lilB.max.z > bigB.max.z)
 				{
 					off.z = lilB.max.z - bigB.max.z;
 				}
+				
 				else if (lilB.min.z < bigB.min.z)
 				{
 					off.z = lilB.min.z - bigB.min.z;
 				}
+				
 				return (off);
 
 			// The offScreen test determines what off would need to be applied to move any tiny part of lilB inside of bigB
@@ -206,33 +221,39 @@ public class Utils01 : MonoBehaviour
 				{
 					return (Vector3.zero);
 				}
+				
 				// if not, find the offset
 				if (lilB.min.x > bigB.max.x)
 				{
 					off.x = lilB.min.x - bigB.max.x;
 				}
+				
 				else if (lilB.max.x < bigB.min.x)
 				{
 					off.x = lilB.max.x - bigB.min.x;
 				}
+				
 				if (lilB.min.y > bigB.max.y)
 				{
 					off.y = lilB.min.y - bigB.max.y;
 				}
+				
 				else if (lilB.max.y < bigB.min.y)
 				{
 					off.y = lilB.max.y - bigB.min.y;
 				}
+				
 				if (lilB.min.z > bigB.max.z)
 				{
 					off.z = lilB.min.z - bigB.max.z;
 				}
+				
 				else if (lilB.max.z < bigB.min.z)
 				{
 					off.z = lilB.max.z - bigB.min.z;
 				}
+				
 				return (off);
-
 		}
 
 		return (Vector3.zero);
@@ -251,6 +272,7 @@ public class Utils01 : MonoBehaviour
 			// then return this gameObject
 			return (go);
 		}
+		
 		// If there is no parent of this Transform
 		if (go.transform.parent == null)
 		{
@@ -258,9 +280,11 @@ public class Utils01 : MonoBehaviour
 			// So return null
 			return (null);
 		}
+		
 		// Otherwise, recursively climb up the tree
 		return (FindTaggedParent(go.transform.parent.gameObject));
 	}
+	
 	// This version of the function handles things if a Transform is passed in
 	public static GameObject FindTaggedParent(Transform t)
 	{
@@ -297,18 +321,23 @@ public class Utils01 : MonoBehaviour
 	static public Vector3 Lerp(Vector3 vFrom, Vector3 vTo, float u)
 	{
 		Vector3 res = (1 - u) * vFrom + u * vTo;
+		
 		return (res);
 	}
+
 	// The same function for Vector2
 	static public Vector2 Lerp(Vector2 vFrom, Vector2 vTo, float u)
 	{
 		Vector2 res = (1 - u) * vFrom + u * vTo;
+		
 		return (res);
 	}
+
 	// The same function for float
 	static public float Lerp(float vFrom, float vTo, float u)
 	{
 		float res = (1 - u) * vFrom + u * vTo;
+		
 		return (res);
 	}
 
@@ -326,14 +355,18 @@ public class Utils01 : MonoBehaviour
 		{
 			return (vList[0]);
 		}
+		
 		// Otherwise, create vListR, which is all but the 0th element of vList
 		// e.g. if vList = [0,1,2,3,4] then vListR = [1,2,3,4]
 		List<Vector3> vListR = vList.GetRange(1, vList.Count - 1);
+		
 		// And create vListL, which is all but the last element of vList
 		// e.g. if vList = [0,1,2,3,4] then vListL = [0,1,2,3]
 		List<Vector3> vListL = vList.GetRange(0, vList.Count - 1);
+		
 		// The result is the Lerp of these two shorter Lists
 		Vector3 res = Lerp(Bezier(u, vListL), Bezier(u, vListR), u);
+		
 		return (res);
 	}
 
@@ -352,14 +385,18 @@ public class Utils01 : MonoBehaviour
 		{
 			return (vList[0]);
 		}
+		
 		// Otherwise, create vListR, which is all but the 0th element of vList
 		// e.g. if vList = [0,1,2,3,4] then vListR = [1,2,3,4]
 		List<Vector2> vListR = vList.GetRange(1, vList.Count - 1);
+		
 		// And create vListL, which is all but the last element of vList
 		// e.g. if vList = [0,1,2,3,4] then vListL = [0,1,2,3]
 		List<Vector2> vListL = vList.GetRange(0, vList.Count - 1);
+		
 		// The result is the Lerp of these two shorter Lists
 		Vector2 res = Lerp(Bezier(u, vListL), Bezier(u, vListR), u);
+		
 		return (res);
 	}
 
@@ -378,14 +415,18 @@ public class Utils01 : MonoBehaviour
 		{
 			return (vList[0]);
 		}
+		
 		// Otherwise, create vListR, which is all but the 0th element of vList
 		// e.g. if vList = [0,1,2,3,4] then vListR = [1,2,3,4]
 		List<float> vListR = vList.GetRange(1, vList.Count - 1);
+		
 		// And create vListL, which is all but the last element of vList
 		// e.g. if vList = [0,1,2,3,4] then vListL = [0,1,2,3]
 		List<float> vListL = vList.GetRange(0, vList.Count - 1);
+		
 		// The result is the Lerp of these two shorter Lists
 		float res = Lerp(Bezier(u, vListL), Bezier(u, vListR), u);
+		
 		return (res);
 	}
 
@@ -402,10 +443,12 @@ public class Utils01 : MonoBehaviour
 	static public void tr(params object[] objs)
 	{
 		string s = objs[0].ToString();
+		
 		for (int i = 1; i < objs.Length; i++)
 		{
 			s += "\t" + objs[i].ToString();
 		}
+		
 		print(s);
 	}
 
@@ -428,6 +471,7 @@ public class Utils01 : MonoBehaviour
 		f = RoundToPlaces(f, places);
 		string str = AddCommasToNumber(n);
 		str += "." + (f * Mathf.Pow(10, places));
+		
 		return (str);
 	}
 	static public string AddCommasToNumber(int n)
@@ -436,6 +480,7 @@ public class Utils01 : MonoBehaviour
 		int div;
 		string res = "";
 		string rems;
+		
 		while (n > 0)
 		{
 			rem = n % 1000;
@@ -446,24 +491,25 @@ public class Utils01 : MonoBehaviour
 			{
 				rems = "0" + rems;
 			}
+			
 			// TODO: I think there must be a faster way to concatenate strings. Maybe I could do this with an array or something
 			if (res == "")
 			{
 				res = rems;
 			}
+			
 			else
 			{
 				res = rems + "," + res.ToString();
 			}
+			
 			n = div;
 		}
+		
 		if (res == "") res = "0";
+		
 		return (res);
 	}
-
-
-
-
 }
 
 
@@ -503,43 +549,50 @@ public class Easing01
 		}
 
 		float u2 = u;
+		
 		foreach (string curve in curveParams)
 		{
 			// Check to see if this curve is already cached
 			if (!cache.ContainsKey(curve))
 			{
 				// If not, parse and cache it
-				EaseParse(curve);
+				//EaseParse(curve);
 			}
+			
 			// Call the cached curve
-			u2 = EaseP(u2, cache[curve]);
+			//u2 = EaseP(u2, cache[curve]);
 		}
+		
 		return (u2);
-		/*	
-			
+		
 			// It's possible to pass in several comma-separated curves
-			string[] curvesA = curves.Split(',');
-			foreach (string curve in curvesA) {
-				if (curve == "") continue;
+			//string[] curvesA = curves.Split(',');
+			
+			//foreach (string curve in curvesA)
+			//{
+				//if (curve == "") continue;
 				//string[] curveA = 
-			}
+			//}
 			
 		}
+		
 		//string[] curve = func.Split(',');
 		
-		foreach (string curve in curves) {
+		//foreach (string curve in curves)
+		//{
 			
-		}
+		//}
 		
 		string[] funcSplit;
-		foreach (string f in funcs) {
-			funcSplit = f.Split('|');
+		//foreach (string f in funcs)
+		//{
+			//funcSplit = f.Split('|');
 			
-		}
-		*/
+		//}
+		
 	}
 
-	static private void EaseParse(string curveIn)
+	/**static private void EaseParse(string curveIn)
 	{
 		EasingCachedCurve ecc = new EasingCachedCurve();
 		// It's possible to pass in several comma-separated curves
@@ -568,15 +621,15 @@ public class Easing01
 			}
 		}
 		cache.Add(curveIn, ecc);
-	}
+	}*/
 
 
-	static public float Ease(float u, string curve, float mod)
-	{
-		return (EaseP(u, curve, mod));
-	}
+	//static public float Ease(float u, string curve, float mod)
+	//{
+		//return (EaseP(u, curve, mod));
+	//}
 
-	static private float EaseP(float u, EasingCachedCurve ec)
+	/**static private float EaseP(float u, EasingCachedCurve ec)
 	{
 		float u2 = u;
 		for (int i = 0; i < ec.curves.Count; i++)
@@ -584,9 +637,9 @@ public class Easing01
 			u2 = EaseP(u2, ec.curves[i], ec.mods[i]);
 		}
 		return (u2);
-	}
+	}*/
 
-	static private float EaseP(float u, string curve, float mod)
+	/**static private float EaseP(float u, string curve, float mod)
 	{
 		float u2 = u;
 
@@ -636,6 +689,6 @@ public class Easing01
 		}
 
 		return (u2);
-	}
+	}*/
 
-}
+//}

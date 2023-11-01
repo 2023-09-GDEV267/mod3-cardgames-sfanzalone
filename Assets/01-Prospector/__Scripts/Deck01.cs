@@ -140,11 +140,12 @@ public class Deck01 : MonoBehaviour
 	{
 		foreach(CardDefinition cd in cardDefs)
 		{
-			//if (cd.rank == rnk)
+			if (cd.rank == rnk)
 			{
 					return(cd);
 			}
 		} // foreach
+
 		return (null);
 	}//GetCardDefinitionByRank
 	
@@ -191,13 +192,15 @@ public class Deck01 : MonoBehaviour
 			card.def = GetCardDefinitionByRank(card.rank);
 			
 			// Add Decorators
-			foreach (Decorator deco in decorators) {
+			foreach (Decorator deco in decorators)
+			{
 				tGO = Instantiate(prefabSprite) as GameObject;
 				tSR = tGO.GetComponent<SpriteRenderer>();
 				if (deco.type == "suit")
 				{
 					tSR.sprite = dictSuits[card.suit];
 				}
+
 				else
 				{ // it is a rank
 					tS = rankSprites[card.rank];
@@ -286,7 +289,8 @@ public class Deck01 : MonoBehaviour
 			{
 				return (tS);
 			}
-		}//foreach	
+		}//foreach
+
 		return (null);  // couldn't find the sprite (should never reach this line)
 	 }// getFace 
 

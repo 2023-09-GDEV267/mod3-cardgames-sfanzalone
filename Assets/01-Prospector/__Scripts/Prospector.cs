@@ -89,14 +89,13 @@ public class Prospector : MonoBehaviour
 		drawPile = ConvertListCardsToListCardProspectors(deck.cards);
 		LayoutGame();
 
-		//This code here needs to stay commented
-		/**Card01 c;
+		Card01 c;
 
 		for(int cNum = 0; cNum < deck.cards.Count; cNum++) 
 		{
 			c = deck.cards[cNum];
 			c.transform.localPosition = new Vector3((cNum % 13) * 3, cNum / 13 * 4, 0);
-		}*/
+		}
 
 		layout = GetComponent<Layout01>(); //Get the Layout component
 		layout.ReadLayout(layoutXML.text); //Pass LayoutXML to it
@@ -281,8 +280,6 @@ public class Prospector : MonoBehaviour
 		}
 	}
 
-
-
 	//CardClicked is called any time a card in the game is clicked
 	public void CardClicked(CardProspector cd)
 	{
@@ -389,7 +386,7 @@ public class Prospector : MonoBehaviour
 
 			//print("Game Over.  You Won! :)"); //This is supposed to be commented out
 			ScoreManager01.EVENT(eScoreEvent.gameWin);
-			//FloaringScoreHandler(eScoreEvent.gameWin);
+			FloatingScoreHandler(eScoreEvent.gameWin);
 		}
 
 		else
@@ -411,7 +408,7 @@ public class Prospector : MonoBehaviour
 
 			//print("Game Over.  You Lost. :("); //This is supposed to be commented out
 			ScoreManager01.EVENT(eScoreEvent.gameLoss);
-			//FloaringScoreHandler(eScoreEvent.gameLoss);
+			FloatingScoreHandler(eScoreEvent.gameLoss);
 		}
 
 		//Reload the scene, resetting the game

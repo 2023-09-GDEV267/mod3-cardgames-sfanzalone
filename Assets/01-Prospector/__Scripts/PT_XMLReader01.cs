@@ -25,17 +25,17 @@ public class PT_XMLReader01
 {
 	static public bool		SHOW_COMMENTS = false;
 
-	//public string input;
-	//public TextAsset inputTA;
+	public string input;
+	public TextAsset inputTA;
 	public string xmlText;
 	public PT_XMLHashtable01 xml;
 	
 	
 	void Awake()
 	{
-		/**inputTA = Resources.Load("WellFormedSample") as TextAsset;	
+		inputTA = Resources.Load("WellFormedSample") as TextAsset;	
 		input = inputTA.text;
-		print(input);
+		/**print(input);
 		output = new XMLHashtable();
 		Parse(input, output);
 		
@@ -105,7 +105,7 @@ public class PT_XMLReader01
 		}
 		
 		// Find the end of the tag name
-										// For the next few comments, this is what happens when this character is the first one found after the beginning of the tag
+		// For the next few comments, this is what happens when this character is the first one found after the beginning of the tag
 		end1 = eS.IndexOf(" ", ndx);	// This means that we'll have attributes
 		end2 = eS.IndexOf("/", ndx);	// Immediately closes the tag, 
 		end3 = eS.IndexOf(">", ndx);	// This closes a standard tag; look for the closing tag
@@ -122,6 +122,7 @@ public class PT_XMLReader01
 		{
 			eH[tag] = new PT_XMLHashList01();
 		}
+		
 		// Create a hashtable to contain this tag's information
 		PT_XMLHashList01 arrL = eH[tag] as PT_XMLHashList01;
 		int thisHashIndex = arrL.Count;
@@ -186,7 +187,7 @@ public class PT_XMLReader01
 			// find the closing tag
 			int close = eS.IndexOf("</"+tag+">");
 
-// TODO: Should this do something more if there is no closing tag?
+			// TODO: Should this do something more if there is no closing tag?
 			if (close == -1)
 			{
 				Debug.Log("XMLReader ERROR: XML not well formed. Closing tag </"+tag+"> missing.");
@@ -196,12 +197,14 @@ public class PT_XMLReader01
 			subs = eS.Substring(end3+1, close-end3-1);
 			leftoverString = eS.Substring( eS.IndexOf(">",close)+1 );
 		}
+		
 		else
 		{
 			leftoverString = eS.Substring(end3+1);
 		}
 		
 		subs = subs.Trim();
+		
 		// Call Parse if this contains subs
 		if (subs.Length > 0)
 		{
@@ -214,8 +217,6 @@ public class PT_XMLReader01
 	
 	}
 }
-
-
 
 public class PT_XMLHashList01
 {
@@ -298,10 +299,13 @@ public class PT_XMLHashtable01
 	
 	public PT_XMLHashList01 this[string s]
 	{
-		get {
+		get
+		{
 			return( Get(s) );
 		}
-		set {
+		
+		set
+		{
 			Set( s, value );
 		}
 	}
@@ -310,17 +314,20 @@ public class PT_XMLHashtable01
 	{
 		int ndx = AttIndex(attKey);
 		if (ndx == -1) return("");
+		
 		return( attributesList[ndx] );
 	}
 	
 	public void attSet(string attKey, string val)
 	{
 		int ndx = AttIndex(attKey);
+		
 		if (ndx == -1)
 		{
 			attKeys.Add(attKey);
 			attributesList.Add(val);
 		}
+		
 		else
 		{
 			attributesList[ndx] = val;
@@ -343,6 +350,7 @@ public class PT_XMLHashtable01
 				attKeys.Add("@");
 				attributesList.Add(value);
 			}
+			
 			else
 			{
 				attributesList[ndx] = value;
@@ -359,6 +367,7 @@ public class PT_XMLHashtable01
 			if (ndx == -1) return( "" );
 			return( attributesList[ndx] );
 		}
+		
 		set
 		{
 			int ndx = AttIndex("@XML_Header");
@@ -367,6 +376,7 @@ public class PT_XMLHashtable01
 				attKeys.Add("@XML_Header");
 				attributesList.Add(value);
 			}
+			
 			else
 			{
 				attributesList[ndx] = value;
@@ -380,6 +390,7 @@ public class PT_XMLHashtable01
 		get
 		{
 			string s = "";
+			
 			foreach (string key in keys)
 			{
 				s += key+"   ";
@@ -394,6 +405,7 @@ public class PT_XMLHashtable01
 		get
 		{
 			string s = "";
+			
 			foreach (string attKey in attKeys)
 			{
 				s += attKey+"   ";
