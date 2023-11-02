@@ -111,8 +111,8 @@ public class Clock : MonoBehaviour
 
 		foreach (Card02 tCD in lCD)
 		{
-			//tCP = tCD as CardClock; //Logic Error that needs to be fixed
-			//lCP.Add(tCP); //Logic Error must be fixed first
+			tCP = tCD as CardClock; //Logic Error that needs to be fixed
+			lCP.Add(tCP); //Logic Error must be fixed first
 		}
 
 		return (lCP);

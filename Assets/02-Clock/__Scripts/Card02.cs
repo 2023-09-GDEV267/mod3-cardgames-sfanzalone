@@ -21,7 +21,7 @@ public class Card02 : MonoBehaviour
 
 	[SerializeField]
 
-	GameObject PrefabCard;
+	GameObject PrefabClockCard;
 	GameObject PrefabSprite;
 
 	[SerializeField]
@@ -129,7 +129,7 @@ public class Card02 : MonoBehaviour
 				Vector3 pos = transform.position + new Vector3(x, y, 0);
 				float angleDegrees = -angle * Mathf.Rad2Deg;
 				Quaternion rot = Quaternion.Euler(0, 0, angleDegrees);
-				Instantiate(PrefabCard, pos, rot);
+				Instantiate(PrefabClockCard, pos, rot);
 			}
         }
 	}
