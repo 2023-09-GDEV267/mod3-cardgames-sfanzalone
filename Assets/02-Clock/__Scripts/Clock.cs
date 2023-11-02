@@ -49,8 +49,8 @@ public class Clock : MonoBehaviour
 			highScoreText = go.GetComponent<Text>();
 		}
 
-		int highScore = ScoreManager01.HIGH_SCORE;
-		string hScore = "High Score: " + Utils01.AddCommasToNumber(highScore);
+		int highScore = ScoreManager02.HIGH_SCORE;
+		string hScore = "High Score: " + Utils02.AddCommasToNumber(highScore);
 		go.GetComponent<Text>().text = hScore;
 
 		//Set up the UI Texts that show at the end of the round
