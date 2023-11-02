@@ -87,11 +87,11 @@ public class Prospector : MonoBehaviour
 		deck.InitDeck(deckXML.text); //Pass DeckXML to it
 		Deck01.Shuffle(ref deck.cards); //This shuffles the deck
 		drawPile = ConvertListCardsToListCardProspectors(deck.cards);
-		LayoutGame();
+
 
 		Card01 c;
 
-		for(int cNum = 0; cNum < deck.cards.Count; cNum++) 
+		for (int cNum = 0; cNum < deck.cards.Count; cNum++)
 		{
 			c = deck.cards[cNum];
 			c.transform.localPosition = new Vector3((cNum % 13) * 3, cNum / 13 * 4, 0);
@@ -100,6 +100,8 @@ public class Prospector : MonoBehaviour
 		layout = GetComponent<Layout01>(); //Get the Layout component
 		layout.ReadLayout(layoutXML.text); //Pass LayoutXML to it
 		drawPile = ConvertListCardsToListCardProspectors(deck.cards);
+
+		LayoutGame();
 	}
 
 	List<CardProspector> ConvertListCardsToListCardProspectors(List<Card01> lCD)
@@ -109,8 +111,8 @@ public class Prospector : MonoBehaviour
 
 		foreach (Card01 tCD in lCD)
 		{
-			tCP = tCD as CardProspector;
-			lCP.Add(tCP);
+			tCP = tCD as CardProspector; //Logic Error that needs to be fixed
+			lCP.Add(tCP); //Logic Error must be fixed first
 		}
 
 		return (lCP);

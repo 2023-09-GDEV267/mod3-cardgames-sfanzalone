@@ -14,7 +14,7 @@ public class Card02 : MonoBehaviour
 	public List<GameObject> pipGOs = new List<GameObject>();
 	
 	public GameObject back;  // back of card;
-	public CardDefinition def;  // from DeckXML.xml		
+	public CardDefinition02 def;  // from DeckXML.xml		
 
 	//List of the SpriteRenderer Components of this GameObject and its children
 	public SpriteRenderer[] spriteRenderers;
@@ -149,6 +149,6 @@ public class CardDefinition02
 {
 	public string	face;	//sprite to use for face cart
 	public int		rank;	// value from 1-13 (Ace-King)
-	public List<Decorator>	
-					pips = new List<Decorator>();  // Pips Used
+	public List<Decorator02>	
+					pips = new List<Decorator02>();  // Pips Used
 }

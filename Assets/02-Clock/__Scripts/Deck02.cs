@@ -31,8 +31,8 @@ public class Deck02 : MonoBehaviour
 	// add from p 569
 	public List<string>					cardNames;
 	public List<Card02>					cards;
-	public List<Decorator>				decorators;
-	public List<CardDefinition>			cardDefs;
+	public List<Decorator02>				decorators;
+	public List<CardDefinition02>			cardDefs;
 	public Transform					deckAnchor;
 	public Dictionary<string, Sprite>	dictSuits;
 
@@ -80,16 +80,16 @@ public class Deck02 : MonoBehaviour
 		
 		//Read decorators for all cards
 		// these are the small numbers/suits in the corners
-		decorators = new List<Decorator>();
+		decorators = new List<Decorator02>();
 
 		// grab all decorators from the XML file
 		PT_XMLHashList xDecos = xmlr.xml["xml"][0]["decorator"];
-		Decorator deco;
+		Decorator02 deco;
 		
 		for (int i=0; i<xDecos.Count; i++)
 		{
 			// for each decorator in the XML, copy attributes and set up location and flip if needed
-			deco = new Decorator();
+			deco = new Decorator02();
 			deco.type = xDecos[i].att ("type");
 			deco.flip = (xDecos[i].att ("flip") == "1");   // too cute by half - if it's 1, set to 1, else set to 0
 			deco.scale = float.Parse (xDecos[i].att("scale"));
@@ -101,13 +101,13 @@ public class Deck02 : MonoBehaviour
 		
 		// read pip locations for each card rank
 		// read the card definitions, parse attribute values for pips
-		cardDefs = new List<CardDefinition>();
+		cardDefs = new List<CardDefinition02>();
 		PT_XMLHashList xCardDefs = xmlr.xml["xml"][0]["card"];
 		
 		for (int i=0; i<xCardDefs.Count; i++)
 		{
 			// for each carddef in the XML, copy attributes and set up in cDef
-			CardDefinition cDef = new CardDefinition();
+			CardDefinition02 cDef = new CardDefinition02();
 			cDef.rank = int.Parse(xCardDefs[i].att("rank"));
 			
 			PT_XMLHashList xPips = xCardDefs[i]["pip"];
@@ -115,7 +115,7 @@ public class Deck02 : MonoBehaviour
 			{			
 				for (int j = 0; j < xPips.Count; j++)
 				{
-					deco = new Decorator();
+					deco = new Decorator02();
 					deco.type = "pip";
 					deco.flip = (xPips[j].att ("flip") == "1");   // too cute by half - if it's 1, set to 1, else set to 0
 					
@@ -140,9 +140,9 @@ public class Deck02 : MonoBehaviour
 		} // for i < xCardDefs.Count
 	} // ReadDeck
 	
-	public CardDefinition GetCardDefinitionByRank(int rnk)
+	public CardDefinition02 GetCardDefinitionByRank(int rnk)
 	{
-		foreach(CardDefinition cd in cardDefs)
+		foreach(CardDefinition02 cd in cardDefs)
 		{
 			if (cd.rank == rnk)
 			{
@@ -195,12 +195,18 @@ public class Deck02 : MonoBehaviour
 			card.def = GetCardDefinitionByRank(card.rank);
 			
 			// Add Decorators
-			foreach (Decorator deco in decorators) {
+			foreach (Decorator02 deco in decorators)
+			{
 				tGO = Instantiate(prefabSprite) as GameObject;
 				tSR = tGO.GetComponent<SpriteRenderer>();
-				if (deco.type == "suit") {
+				
+				if (deco.type == "suit")
+				{
 					tSR.sprite = dictSuits[card.suit];
-				} else { // it is a rank
+				}
+				
+				else
+				{ // it is a rank
 					tS = rankSprites[card.rank];
 					tSR.sprite = tS;
 					tSR.color = card.color;
@@ -225,16 +231,19 @@ public class Deck02 : MonoBehaviour
 			
 			
 			//Add the pips
-			foreach(Decorator pip in card.def.pips) {
+			foreach(Decorator02 pip in card.def.pips)
+			{
 				tGO = Instantiate(prefabSprite) as GameObject;
 				tGO.transform.parent = cgo.transform; 
 				tGO.transform.localPosition = pip.loc;
 				
-				if (pip.flip) {
+				if (pip.flip)
+				{
 					tGO.transform.rotation = Quaternion.Euler(0,0,180);
 				}
 				
-				if (pip.scale != 1) {
+				if (pip.scale != 1)
+				{
 					tGO.transform.localScale = Vector3.one * pip.scale;
 				}
 				

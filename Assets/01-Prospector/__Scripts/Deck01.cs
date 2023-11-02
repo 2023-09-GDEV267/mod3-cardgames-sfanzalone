@@ -31,8 +31,8 @@ public class Deck01 : MonoBehaviour
 	// add from p 569
 	public List<string>					cardNames;
 	public List<Card01>					cards;
-	public List<Decorator>				decorators;
-	public List<CardDefinition>			cardDefs;
+	public List<Decorator01>				decorators;
+	public List<CardDefinition01>			cardDefs;
 	public Transform					deckAnchor;
 	public Dictionary<string, Sprite>	dictSuits;
 
@@ -80,13 +80,13 @@ public class Deck01 : MonoBehaviour
 		
 		//Read decorators for all cards
 		// these are the small numbers/suits in the corners
-		decorators = new List<Decorator>();
+		decorators = new List<Decorator01>();
 		// grab all decorators from the XML file
 		PT_XMLHashList01 xDecos = xmlr.xml["xml"][0]["decorator"];
-		Decorator deco;
+		Decorator01 deco;
 		for (int i=0; i<xDecos.Count; i++) {
 			// for each decorator in the XML, copy attributes and set up location and flip if needed
-			deco = new Decorator();
+			deco = new Decorator01();
 			deco.type = xDecos[i].att ("type");
 			deco.flip = (xDecos[i].att ("flip") == "1");   // too cute by half - if it's 1, set to 1, else set to 0
 			deco.scale = float.Parse (xDecos[i].att("scale"));
@@ -98,12 +98,12 @@ public class Deck01 : MonoBehaviour
 		
 		// read pip locations for each card rank
 		// read the card definitions, parse attribute values for pips
-		cardDefs = new List<CardDefinition>();
+		cardDefs = new List<CardDefinition01>();
 		PT_XMLHashList01 xCardDefs = xmlr.xml["xml"][0]["card"];
 		
 		for (int i=0; i<xCardDefs.Count; i++) {
 			// for each carddef in the XML, copy attributes and set up in cDef
-			CardDefinition cDef = new CardDefinition();
+			CardDefinition01 cDef = new CardDefinition01();
 			cDef.rank = int.Parse(xCardDefs[i].att("rank"));
 			
 			PT_XMLHashList01 xPips = xCardDefs[i]["pip"];
@@ -111,7 +111,7 @@ public class Deck01 : MonoBehaviour
 			{			
 				for (int j = 0; j < xPips.Count; j++)
 				{
-					deco = new Decorator();
+					deco = new Decorator01();
 					deco.type = "pip";
 					deco.flip = (xPips[j].att ("flip") == "1");   // too cute by half - if it's 1, set to 1, else set to 0
 					
@@ -136,9 +136,9 @@ public class Deck01 : MonoBehaviour
 		} // for i < xCardDefs.Count
 	} // ReadDeck
 	
-	public CardDefinition GetCardDefinitionByRank(int rnk)
+	public CardDefinition01 GetCardDefinitionByRank(int rnk)
 	{
-		foreach(CardDefinition cd in cardDefs)
+		foreach(CardDefinition01 cd in cardDefs)
 		{
 			if (cd.rank == rnk)
 			{
@@ -192,7 +192,7 @@ public class Deck01 : MonoBehaviour
 			card.def = GetCardDefinitionByRank(card.rank);
 			
 			// Add Decorators
-			foreach (Decorator deco in decorators)
+			foreach (Decorator01 deco in decorators)
 			{
 				tGO = Instantiate(prefabSprite) as GameObject;
 				tSR = tGO.GetComponent<SpriteRenderer>();
@@ -229,7 +229,7 @@ public class Deck01 : MonoBehaviour
 			
 			
 			//Add the pips
-			foreach(Decorator pip in card.def.pips)
+			foreach(Decorator01 pip in card.def.pips)
 			{
 				tGO = Instantiate(prefabSprite) as GameObject;
 				tGO.transform.parent = cgo.transform; 
