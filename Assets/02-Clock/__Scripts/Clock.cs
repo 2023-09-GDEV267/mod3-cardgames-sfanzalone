@@ -81,36 +81,38 @@ public class Clock : MonoBehaviour
 
 	void Start()
 	{
-		Scoreboard01.S.score = ScoreManager01.SCORE;
+		Scoreboard02.S.score = ScoreManager02.SCORE;
 
 		deck = GetComponent<Deck02>(); //Get the Deck
 		deck.InitDeck(deckXML.text); //Pass DeckXML to it
 		Deck02.Shuffle(ref deck.cards); //This shuffles the deck
-		//drawPile = ConvertListCardsToListCardClocks(deck.cards);
-		LayoutGame();
+		drawPile = ConvertListCardsToListCardClocks(deck.cards);
+		
 
-		Card01 c;
+		Card02 c;
 
 		for(int cNum = 0; cNum < deck.cards.Count; cNum++) 
 		{
-			//c = deck.cards[cNum];
-			//c.transform.localPosition = new Vector3((cNum % 13) * 3, cNum / 13 * 4, 0);
+			c = deck.cards[cNum];
+			c.transform.localPosition = new Vector3((cNum % 13) * 3, cNum / 13 * 4, 0);
 		}
 
 		layout = GetComponent<Layout02>(); //Get the Layout component
 		layout.ReadLayout(layoutXML.text); //Pass LayoutXML to it
-		//drawPile = ConvertListCardsToListCardClocks(deck.cards);
+		drawPile = ConvertListCardsToListCardClocks(deck.cards);
+
+		LayoutGame();
 	}
 
-	List<CardClock> ConvertListCardsToListCardClocks(List<Card01> lCD)
+	List<CardClock> ConvertListCardsToListCardClocks(List<Card02> lCD)
 	{
 		List<CardClock> lCP = new List<CardClock>();
 		CardClock tCP;
 
-		foreach (Card01 tCD in lCD)
+		foreach (Card02 tCD in lCD)
 		{
-			//tCP = tCD as CardClock;
-			//lCP.Add(tCP);
+			//tCP = tCD as CardClock; //Logic Error that needs to be fixed
+			//lCP.Add(tCP); //Logic Error must be fixed first
 		}
 
 		return (lCP);
@@ -296,7 +298,7 @@ public class Clock : MonoBehaviour
 				MoveToTarget(Draw()); //Moves the next drawn card to the target
 				SetTableauFaces(); //Update tableau card face-ups
 				UpdateDrawPile(); //Restacks the drawPile
-				ScoreManager01.EVENT(eScoreEvent.draw);
+				ScoreManager02.EVENT(eScoreEvent.draw);
 				FloatingScoreHandler(eScoreEvent.draw);
 
 				break;
@@ -325,7 +327,7 @@ public class Clock : MonoBehaviour
 				//If we got here, then: Yay!  It's a valid card.
 				tableau.Remove(cd); //Remove it from the tableau List
 				MoveToTarget(cd); //Make it the target card
-				ScoreManager01.EVENT(eScoreEvent.mine);
+				ScoreManager02.EVENT(eScoreEvent.mine);
 				FloatingScoreHandler(eScoreEvent.mine);
 
 				break;
@@ -371,7 +373,7 @@ public class Clock : MonoBehaviour
 	//Called when the game is over.  Simple for now, but expandable
 	void GameOver(bool won)
 	{
-		int score = ScoreManager01.SCORE;
+		int score = ScoreManager02.SCORE;
 
 		if (fsRun != null)
 		{
@@ -385,7 +387,7 @@ public class Clock : MonoBehaviour
 			ShowResultsUI(true);
 
 			//print("Game Over.  You Won! :)"); //This is supposed to be commented out
-			ScoreManager01.EVENT(eScoreEvent.gameWin);
+			ScoreManager02.EVENT(eScoreEvent.gameWin);
 			FloatingScoreHandler(eScoreEvent.gameWin);
 		}
 
@@ -393,7 +395,7 @@ public class Clock : MonoBehaviour
 		{
 			gameOverText.text = "Game Over";
 
-			if (ScoreManager01.HIGH_SCORE <= score)
+			if (ScoreManager02.HIGH_SCORE <= score)
 			{
 				string str = "You got the high score! \nHigh score: " + score;
 				roundResultText.text = str;
@@ -407,7 +409,7 @@ public class Clock : MonoBehaviour
 			ShowResultsUI(true);
 
 			//print("Game Over.  You Lost. :("); //This is supposed to be commented out
-			ScoreManager01.EVENT(eScoreEvent.gameLoss);
+			ScoreManager02.EVENT(eScoreEvent.gameLoss);
 			FloatingScoreHandler(eScoreEvent.gameLoss);
 		}
 
@@ -472,7 +474,7 @@ public class Clock : MonoBehaviour
 					fsPts.Add(fsPosRun);
 					fsPts.Add(fsPosMid2);
 					fsPts.Add(fsPosEnd);
-					fsRun.reportFinishTo = Scoreboard01.S.gameObject;
+					fsRun.reportFinishTo = Scoreboard02.S.gameObject;
 
 					fsRun.Init(fsPts, 0, 1);
 
@@ -485,8 +487,8 @@ public class Clock : MonoBehaviour
 
 			case eScoreEvent.mine: //Remove a mine card
 
-				//Create a FloatingScore01 for this score
-				FloatingScore01 fs;
+				//Create a FloatingScore02 for this score
+				FloatingScore02 fs;
 
 				//Move it from the mousePosition to fsPosRun
 				Vector2 p0 = Input.mousePosition;
@@ -496,12 +498,12 @@ public class Clock : MonoBehaviour
 				fsPts.Add(p0);
 				fsPts.Add(fsPosMid);
 				fsPts.Add(fsPosRun);
-				fs = Scoreboard01.S.CreateFloatingScore(ScoreManager01.CHAIN, fsPts);
+				fs = Scoreboard02.S.CreateFloatingScore(ScoreManager02.CHAIN, fsPts);
 				fs.fontSizes = new List<float>(new float[] { 4, 50, 28 });
 
 				if (fsRun == null)
 				{
-					//fsRun = fs;
+					fsRun = fs;
 					fsRun.reportFinishTo = null;
 				}
 
