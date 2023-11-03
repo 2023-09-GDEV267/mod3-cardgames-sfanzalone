@@ -41,19 +41,19 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
-  - name: Row0
+  - name: PileGroup0
     uniqueID: 2889871507
     locked: 0
-  - name: Row1
+  - name: PileGroup1
     uniqueID: 3868559663
     locked: 0
-  - name: Row2
+  - name: PileGroup2
     uniqueID: 3550996753
     locked: 0
-  - name: Row3
+  - name: PileGroup3
     uniqueID: 810302459
     locked: 0
-  - name: Discard
+  - name: KingDiscard
     uniqueID: 3824479709
     locked: 0
   - name: Draw

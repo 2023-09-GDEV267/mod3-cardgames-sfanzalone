@@ -32,7 +32,7 @@ public class Layout02 : MonoBehaviour
     public SlotDef discardPile;
 
     //This holds all of the possible names for the layers set by layerID
-    public string[] sortingLayerNames = new string[] { "Row0", "Row1", "Row2", "Row3", "Discard", "Draw" };
+    public string[] sortingLayerNames = new string[] { "PileGroup0", "PileGroup1", "PileGroup2", "PileGroup3", "KingDiscard", "Draw" };
 
     //This function is called to read in the LayoutXML.xml file
     public void ReadLayout(string xmlText)

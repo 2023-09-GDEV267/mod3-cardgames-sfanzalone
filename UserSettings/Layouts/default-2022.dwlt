@@ -68,8 +68,8 @@ MonoBehaviour:
     y: 0
     width: 364
     height: 722.8
-  m_MinSize: {x: 276, y: 71}
-  m_MaxSize: {x: 4001, y: 4021}
+  m_MinSize: {x: 275, y: 50}
+  m_MaxSize: {x: 4000, y: 4000}
   m_ActualView: {fileID: 13}
   m_Panes:
   - {fileID: 13}
@@ -223,7 +223,7 @@ MonoBehaviour:
   m_MinSize: {x: 200, y: 100}
   m_MaxSize: {x: 16192, y: 16192}
   vertical: 1
-  controlID: 40
+  controlID: 50
 --- !u!114 &10
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -322,7 +322,7 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/01-Prospector/__Scripts
+    - Assets/02-Clock
     m_Globs: []
     m_OriginalText: 
     m_ImportLogFlags: 0
@@ -330,16 +330,16 @@ MonoBehaviour:
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - Assets/01-Prospector/__Scripts
+  - Assets/02-Clock
   m_LastFoldersGridSize: -1
   m_LastProjectPath: C:\Users\sfanz\OneDrive\Documents\Git Hub\mod3-cardgames-sfanzalone
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 39}
-    m_SelectedIDs: aa4c0000
-    m_LastClickedID: 19626
-    m_ExpandedIDs: 00000000984c00009a4c00009c4c000000ca9a3b
+    m_SelectedIDs: 064d0000
+    m_LastClickedID: 19718
+    m_ExpandedIDs: 00000000024d0000044d0000064d000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -367,7 +367,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 00000000984c00009a4c00009c4c0000
+    m_ExpandedIDs: 00000000024d0000044d0000064d0000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -411,7 +411,7 @@ MonoBehaviour:
       m_IsRenaming: 0
       m_OriginalEventType: 11
       m_IsRenamingFilename: 1
-      m_ClientGUIView: {fileID: 11}
+      m_ClientGUIView: {fileID: 5}
     m_CreateAssetUtility:
       m_EndAction: {fileID: 0}
       m_InstanceID: 0
@@ -511,21 +511,21 @@ MonoBehaviour:
       scrollPos: {x: 0, y: 0}
       m_SelectedIDs: 
       m_LastClickedID: 0
-      m_ExpandedIDs: b0a9feff38b1fffffcb2ffff18b6ffff46bcfffff2c0ffffbec2ffff5ec4ffff0ac6ffff66c8ffffe0c9ffff18ceffff5cceffff48d0ffff58d9ffffe6dbfffff6dfffff56e1ffff10e9ffffb2eaffffeefaffffa0510000fc580000
+      m_ExpandedIDs: 1e4fffff704fffff065dffff5e5effff0062ffff2067ffff82a1ffff5ea6ffff2afbffff
       m_RenameOverlay:
         m_UserAcceptedRename: 0
-        m_Name: C3
-        m_OriginalName: C3
+        m_Name: 
+        m_OriginalName: 
         m_EditFieldRect:
           serializedVersion: 2
           x: 0
           y: 0
           width: 0
           height: 0
-        m_UserData: -84030
+        m_UserData: 0
         m_IsWaitingForDelay: 0
         m_IsRenaming: 0
-        m_OriginalEventType: 0
+        m_OriginalEventType: 11
         m_IsRenamingFilename: 0
         m_ClientGUIView: {fileID: 4}
       m_SearchString: 
@@ -795,7 +795,7 @@ MonoBehaviour:
       floating: 1
       collapsed: 0
       displayed: 1
-      snapOffset: {x: -113.20001, y: -101.399994}
+      snapOffset: {x: -111.20001, y: -100.599976}
       snapOffsetDelta: {x: 0, y: 0}
       snapCorner: 3
       id: AINavigationOverlay
@@ -840,9 +840,9 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: -1.3672246, y: -3.865204, z: 6.113821}
+    m_Target: {x: 258.414, y: 314.48605, z: -190.97418}
     speed: 2
-    m_Value: {x: -1.3672246, y: -3.865204, z: 6.113821}
+    m_Value: {x: 258.414, y: 314.48605, z: -190.97418}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -888,13 +888,13 @@ MonoBehaviour:
     m_GridAxis: 1
     m_gridOpacity: 0.5
   m_Rotation:
-    m_Target: {x: 0.017066317, y: 0.070426635, z: -0.0012049819, w: 0.9973721}
+    m_Target: {x: 0.13713822, y: 0.47051793, z: -0.07429623, w: 0.8684987}
     speed: 2
-    m_Value: {x: 0.017066287, y: 0.07042651, z: -0.0012049797, w: 0.9973703}
+    m_Value: {x: 0.13713795, y: 0.47051704, z: -0.07429609, w: 0.868497}
   m_Size:
-    m_Target: 14.230505
+    m_Target: 440.34048
     speed: 2
-    m_Value: 14.230505
+    m_Value: 440.34048
   m_Ortho:
     m_Target: 0
     speed: 2
