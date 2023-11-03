@@ -192,6 +192,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &182919521
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 182919522}
+  m_Layer: 0
+  m_Name: DeckAnchor
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &182919522
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 182919521}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 15.242813, y: -4.164983, z: -7.6676803}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &308809499
 GameObject:
   m_ObjectHideFlags: 0
@@ -273,6 +304,37 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 308809499}
   m_CullTransparentMesh: 1
+--- !u!1 &420908209
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 420908210}
+  m_Layer: 0
+  m_Name: LayoutAnchor
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &420908210
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 420908209}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 15.242813, y: -4.164983, z: -7.6676803}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &685519384
 GameObject:
   m_ObjectHideFlags: 0
@@ -515,7 +577,7 @@ MonoBehaviour:
   cards: []
   decorators: []
   cardDefs: []
-  deckAnchor: {fileID: 0}
+  deckAnchor: {fileID: 182919522}
 --- !u!114 &827460515
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -544,7 +606,7 @@ MonoBehaviour:
   deck: {fileID: 0}
   layout: {fileID: 0}
   drawPile: []
-  layoutAnchor: {fileID: 0}
+  layoutAnchor: {fileID: 420908210}
   target: {fileID: 0}
   tableau: []
   discardPile: []
@@ -943,3 +1005,5 @@ SceneRoots:
   - {fileID: 1506030957}
   - {fileID: 95769994}
   - {fileID: 1667940600}
+  - {fileID: 420908210}
+  - {fileID: 182919522}

@@ -25,17 +25,17 @@ public class PT_XMLReader02
 {
 	static public bool		SHOW_COMMENTS = false;
 
-	//public string input;
-	//public TextAsset inputTA;
+	public string input;
+	public TextAsset inputTA;
 	public string xmlText;
 	public PT_XMLHashtable xml;
 	
 	
 	void Awake()
 	{
-		/**inputTA = Resources.Load("WellFormedSample") as TextAsset;	
+		inputTA = Resources.Load("WellFormedSample") as TextAsset;	
 		input = inputTA.text;
-		print(input);
+		/**print(input);
 		output = new XMLHashtable();
 		Parse(input, output);
 		// TODO: Make something which will trace a Hashtable or output it as XML

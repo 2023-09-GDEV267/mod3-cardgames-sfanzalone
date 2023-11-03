@@ -131,7 +131,7 @@ MonoBehaviour:
     rank: 0
     pips: []
   spriteRenderers: []
-  PrefabCard: {fileID: 0}
+  PrefabClockCard: {fileID: 0}
   numOfObjects: 12
   radius: 5
   state: 0
